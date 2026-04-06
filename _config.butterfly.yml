@@ -11,7 +11,7 @@
 
 nav:
   # Navigation bar logo image
-  logo: /img/my-avatar.jpg1
+  logo:  /img/my-avatar.jpg
   display_title: true
   display_post_title: true
   # Whether to fix navigation bar
