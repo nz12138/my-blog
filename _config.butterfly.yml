@@ -11,28 +11,28 @@
 
 nav:
   # Navigation bar logo image
-  logo:
+  logo: 孙淮洲
   display_title: true
   display_post_title: true
   # Whether to fix navigation bar
-  fixed: false
+  fixed: true
 
+# 注意：要把原来的几行删掉，换成这个，注意空格对齐
 menu:
-  # Home: / || fas fa-home
-  # List||fas fa-list:
-  #   Music: /music/ || fas fa-music
-  #   Movie: /movies/ || fas fa-video
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  关于: /about/ || fas fa-user
 
 # --------------------------------------
 # Code Blocks Settings
 # --------------------------------------
 
 code_blocks:
-  # Code block theme: darker / pale night / light / ocean / false
-  theme: light
-  macStyle: false
-  # Code block height limit (unit: px)
-  height_limit: false
+  theme: darker # 改为深色主题
+  macStyle: true # 改为 true，开启 Mac 风格圆点
+  height_limit: 500 # 如果代码太长，自动限制高度并显示滚动条
   word_wrap: false
 
   # Toolbar
