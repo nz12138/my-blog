@@ -1,0 +1,26 @@
+/* 隐藏首页大热点图上的标题和副标题 */
+#site-info #site-title,
+#site-info #site-subtitle {
+    display: none !important;
+}
+
+/* 确保 Canvas 容器铺满 Banner 区域并置顶 */
+#canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* 确保在背景图之上 */
+    pointer-events: auto; /* 允许点击互动 */
+}
+
+/* 调整提示文字的位置，避免挡住导航栏 */
+#overlay {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    z-index: 11;
+    text-align: center;
+    pointer-events: none;
+}
