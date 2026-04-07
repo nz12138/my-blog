@@ -2,15 +2,38 @@
 
 let scene, camera, renderer;
 let backgroundParticles, textParticles;
-let textTargets = []; 
+let textTargets = [];
 let mouseX = 0, mouseY = 0;
 let windowHalfX = window.innerWidth / 2;
 let windowHalfY = window.innerHeight / 2;
 let startTime = 0;
 
+// 1. 修改后的 init 函数
 function init() {
-    const container = document.getElementById('canvas-container');
-    if (!container) return;
+    const header = document.getElementById('page-header');
+    // 💡 增加判断：只有在“首页大图”存在时才初始化，防止在文章页乱跑
+    if (!header || !header.classList.contains('full_page')) return;
+
+    let container = document.getElementById('canvas-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'canvas-container';
+        // 💡 暴力插入：确保它在所有页头内容的最底层
+        header.insertBefore(container, header.firstChild);
+    }
+
+    // 💡 暴力样式锁定：使用 !important 防止被主题 CSS 覆盖
+    container.style.cssText = `
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 0 !important;
+        pointer-events: none !important;
+        overflow: hidden !important;
+    `;
+    header.style.position = 'relative';
 
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x020205, 0.0001);
@@ -24,21 +47,12 @@ function init() {
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(header.offsetWidth, header.offsetHeight); // 💡 改为获取容器实际大小
     renderer.setClearColor(0x000000, 0);
 
-    // 💡 修复一：改为 absolute，并限制高度。让它随页面自然滚动，不再像狗皮膏药一样跟着屏幕！
     renderer.domElement.style.pointerEvents = 'none';
-    container.style.pointerEvents = 'none';
-    container.style.position = 'absolute';  /* 💡 关键：不再 fixed */
-    container.style.top = '0';
-    container.style.left = '0';
-    container.style.width = '100%';
-    container.style.height = '100vh';       /* 💡 锁定只占满第一屏高度 */
-    container.style.zIndex = '0';
-    container.style.overflow = 'hidden';
-
     container.appendChild(renderer.domElement);
+
     updateResponsiveState();
 
     document.addEventListener('mousemove', onDocumentMouseMove);
@@ -171,56 +185,48 @@ function render() {
     renderer.render(scene, camera);
 }
 
-// 💡 打字机引擎
+// 2. 修改后的打字机函数
 function initGeekTypewriter() {
+    const header = document.getElementById('page-header');
+    if (!header || !header.classList.contains('full_page')) return;
+
     let subtitleDiv = document.getElementById('geek-subtitle');
     if (!subtitleDiv) {
         subtitleDiv = document.createElement('div');
         subtitleDiv.id = 'geek-subtitle';
-        // 💡 修复二：改为 absolute 和 vh，确保只停留在首页的首屏
+        header.appendChild(subtitleDiv);
+
+        // 💡 样式锁定：确保文字随 header 滚动
         subtitleDiv.style.cssText = `
-            position: absolute;     /* 💡 关键：不再 fixed */
-            top: 51vh;              /* 💡 关键：用视口高度定位，保证它正好在第一屏的 51% 处 */
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            z-index: 9999;          
-            color: #E6F5FF; 
-            font-size: 1rem;     
-            font-family: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; 
-            font-weight: 300;       
-            letter-spacing: 4px;    
-            text-shadow: 0 0 8px rgba(230, 245, 255, 0.6); 
-            pointer-events: none;   
-            text-align: center; 
-            width: 100%; 
+            position: absolute !important;
+            top: 55% !important;
+            left: 50% !important; 
+            transform: translate(-50%, -50%) !important; 
+            z-index: 10 !important;
+            color: #E6F5FF !important; 
+            font-size: 1.2rem !important;     
+            text-align: center !important; 
+            width: 100% !important;
+            pointer-events: none !important;
+            letter-spacing: 4px;
+            text-shadow: 0 0 8px rgba(230, 245, 255, 0.6);
         `;
-        document.body.appendChild(subtitleDiv);
     }
 
+    // --- 以下打字逻辑保持你的原始代码不变 ---
     if (subtitleDiv.getAttribute('data-typed-running')) return;
     subtitleDiv.setAttribute('data-typed-running', 'true');
-
     const texts = ["人生若只如初见，何事秋风悲画扇","欢迎来到 HZ Lab", "祝你找到自己的频率", "且趁余花谋一笑，朱伞深巷无故人","摘下最喜欢的麦穗，然后闭着眼睛穿过整个麦田","在那些和ta错开的时间里"];
     let textIndex = 0, charIndex = 0, isDeleting = false;
-
     function type() {
         const currentText = texts[textIndex];
         subtitleDiv.innerHTML = currentText.substring(0, charIndex) + '<span class="geek-cursor">|</span>';
-
         let typeSpeed = isDeleting ? 50 : 150;
-        if (!isDeleting && charIndex === currentText.length) {
-            typeSpeed = 3000;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            textIndex = (textIndex + 1) % texts.length;
-            typeSpeed = 500;
-        } else {
-            charIndex = isDeleting ? charIndex - 1 : charIndex + 1;
-        }
+        if (!isDeleting && charIndex === currentText.length) { typeSpeed = 3000; isDeleting = true; }
+        else if (isDeleting && charIndex === 0) { isDeleting = false; textIndex = (textIndex + 1) % texts.length; typeSpeed = 500; }
+        else { charIndex = isDeleting ? charIndex - 1 : charIndex + 1; }
         setTimeout(type, typeSpeed);
     }
-
     if (!document.getElementById('geek-cursor-style')) {
         const style = document.createElement('style');
         style.id = 'geek-cursor-style';
@@ -230,25 +236,24 @@ function initGeekTypewriter() {
     type();
 }
 
+// 3. 修改后的启动/环境检测函数
 function startApp() {
-    // 💡 修复三：强制环境检测！只要不是首页，立刻罢工，绝不干扰文章阅读！
     const path = window.location.pathname;
+    // 检测是否为首页
     const isHomePage = path === '/' || path === '/index.html' || path.startsWith('/page/');
 
     if (!isHomePage) {
-        // 如果是文章页，直接销毁容器，并终止程序
+        // 💡 如果不是首页，确保清理掉可能存在的残留
         const canvasContainer = document.getElementById('canvas-container');
         const subtitleDiv = document.getElementById('geek-subtitle');
-        if (canvasContainer) canvasContainer.style.display = 'none';
-        if (subtitleDiv) subtitleDiv.style.display = 'none';
+        if (canvasContainer) canvasContainer.remove();
+        if (subtitleDiv) subtitleDiv.remove();
         return;
     }
 
-    console.log("HZ Lab App Starting...");
-    if (document.getElementById('canvas-container')) {
-        init();
-        animate();
-    }
+    // 只有首页才运行
+    init();
+    animate();
     initGeekTypewriter();
 }
 
