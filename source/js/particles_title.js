@@ -27,11 +27,16 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
 
-    // 💡 核心修复：点击穿透 + 置底层级
+    // 💡 修复一：改为 absolute，并限制高度。让它随页面自然滚动，不再像狗皮膏药一样跟着屏幕！
     renderer.domElement.style.pointerEvents = 'none';
     container.style.pointerEvents = 'none';
-    container.style.position = 'fixed';
+    container.style.position = 'absolute';  /* 💡 关键：不再 fixed */
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '100vh';       /* 💡 锁定只占满第一屏高度 */
     container.style.zIndex = '0';
+    container.style.overflow = 'hidden';
 
     container.appendChild(renderer.domElement);
     updateResponsiveState();
@@ -166,23 +171,21 @@ function render() {
     renderer.render(scene, camera);
 }
 
-// 💡 终极自研打字机：凭空造物，彻底无视主题干扰
+// 💡 打字机引擎
 function initGeekTypewriter() {
-    // 1. 绕过主题，直接在网页 body 里造一个我们专属的 div
     let subtitleDiv = document.getElementById('geek-subtitle');
     if (!subtitleDiv) {
         subtitleDiv = document.createElement('div');
         subtitleDiv.id = 'geek-subtitle';
-        // 💡 强行焊死样式，任何主题 CSS 都无法覆盖
-       // 💡 极致精调：正文级字号 + 黄金间距
+        // 💡 修复二：改为 absolute 和 vh，确保只停留在首页的首屏
         subtitleDiv.style.cssText = `
-            position: fixed; 
-            top: 51%;               /* 💡 从 53% 调到了 51%，让它和主标题靠得更近一点点 */
+            position: absolute;     /* 💡 关键：不再 fixed */
+            top: 51vh;              /* 💡 关键：用视口高度定位，保证它正好在第一屏的 51% 处 */
             left: 50%; 
             transform: translate(-50%, -50%); 
             z-index: 9999;          
             color: #E6F5FF; 
-            font-size: 1rem;        /* 💡 从 1.25rem 缩小到了 1rem (即网页标准正文大小) */
+            font-size: 1rem;     
             font-family: "Inter", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; 
             font-weight: 300;       
             letter-spacing: 4px;    
@@ -191,13 +194,13 @@ function initGeekTypewriter() {
             text-align: center; 
             width: 100%; 
         `;
-        document.body.appendChild(subtitleDiv); // 💡 刚刚漏掉了这一行，导致文字没法挂载到网页上！
-    } // 💡 刚刚漏掉了这个闭合大括号，导致整个脚本崩溃！
+        document.body.appendChild(subtitleDiv);
+    }
 
     if (subtitleDiv.getAttribute('data-typed-running')) return;
     subtitleDiv.setAttribute('data-typed-running', 'true');
 
-    const texts = ["Binary Stargazer", "欢迎来到 HZ Lab", "用代码重塑现实边界"];
+    const texts = ["二进制里的摘星者 (Binary Stargazer)", "欢迎来到 HZ Lab", "用代码重塑现实边界"];
     let textIndex = 0, charIndex = 0, isDeleting = false;
 
     function type() {
@@ -227,8 +230,20 @@ function initGeekTypewriter() {
     type();
 }
 
-// 💡 关键：统一定义启动入口
 function startApp() {
+    // 💡 修复三：强制环境检测！只要不是首页，立刻罢工，绝不干扰文章阅读！
+    const path = window.location.pathname;
+    const isHomePage = path === '/' || path === '/index.html' || path.startsWith('/page/');
+
+    if (!isHomePage) {
+        // 如果是文章页，直接销毁容器，并终止程序
+        const canvasContainer = document.getElementById('canvas-container');
+        const subtitleDiv = document.getElementById('geek-subtitle');
+        if (canvasContainer) canvasContainer.style.display = 'none';
+        if (subtitleDiv) subtitleDiv.style.display = 'none';
+        return;
+    }
+
     console.log("HZ Lab App Starting...");
     if (document.getElementById('canvas-container')) {
         init();
@@ -237,6 +252,5 @@ function startApp() {
     initGeekTypewriter();
 }
 
-// 监听加载事件
 window.addEventListener('load', startApp);
 document.addEventListener('pjax:complete', startApp);
