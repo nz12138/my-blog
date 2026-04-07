@@ -200,7 +200,7 @@ function initGeekTypewriter() {
     if (subtitleDiv.getAttribute('data-typed-running')) return;
     subtitleDiv.setAttribute('data-typed-running', 'true');
 
-    const texts = ["二进制里的摘星者 (Binary Stargazer)", "欢迎来到 HZ Lab", "用代码重塑现实边界"];
+    const texts = ["人生若只如初见，何事秋风悲画扇","欢迎来到 HZ Lab", "祝你找到自己的频率", "且趁余花谋一笑，朱伞深巷无故人"];
     let textIndex = 0, charIndex = 0, isDeleting = false;
 
     function type() {
