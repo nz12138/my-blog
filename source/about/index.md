@@ -1,7 +1,7 @@
 ---
 title: 关于我
 date: 2026-04-01
-top_img: /img/Fuji,mount.jpg
+top_img: /img/3.jpg
 ---
 
 ### 你好，我是孙淮洲 👋
