@@ -1,26 +1,138 @@
-/* 隐藏首页大热点图上的标题和副标题 */
-#site-info #site-title,
-#site-info #site-subtitle {
-    display: none !important;
+/* =========================================
+   侧边栏底部：昼夜开关与社交图标 (Mete0r)
+========================================= */
+.mete0r-bottom-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 20px 0;
 }
 
-/* 确保 Canvas 容器铺满 Banner 区域并置顶 */
-#canvas-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10; /* 确保在背景图之上 */
-    pointer-events: auto; /* 允许点击互动 */
+/* --- 1. 社交图标排版 --- */
+.social-icons-row {
+    display: flex;
+    gap: 20px; /* 图标间距 */
+    margin-top: 25px;
 }
 
-/* 调整提示文字的位置，避免挡住导航栏 */
-#overlay {
-    position: absolute;
-    bottom: 10%;
-    width: 100%;
-    z-index: 11;
-    text-align: center;
-    pointer-events: none;
+.social-icons-row a {
+    color: #333 !important; /* 图中那种纯粹的黑色 */
+    font-size: 22px;
+    transition: all 0.3s ease;
 }
+
+.social-icons-row a:hover {
+    color: #1BCDFC !important; /* 悬浮变蓝 */
+    transform: translateY(-3px); /* 悬浮微动 */
+}
+
+/* 深色模式下的图标变成白色 */
+html[data-theme="dark"] .social-icons-row a {
+    color: #ddd !important;
+}
+
+/* --- 2. 可爱的昼夜切换开关 (纯CSS绘制) --- */
+.day-night-switch {
+    position: relative;
+}
+
+.dn-toggle-input {
+    display: none; /* 隐藏原生复选框 */
+}
+
+.dn-toggle-label {
+    display: block;
+    width: 76px;
+    height: 34px;
+    background: #73C0F8; /* 白天天空蓝 */
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.5s ease;
+    overflow: hidden;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* 太阳 / 月亮 */
+.dn-sun-moon {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #FFD43B; /* 太阳黄 */
+    border-radius: 50%;
+    top: 4px;
+    left: 4px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Q弹动画 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+/* 云朵 (利用伪元素堆叠画出蓬松感) */
+.dn-clouds {
+    position: absolute;
+    bottom: -6px;
+    left: 12px;
+    width: 50px;
+    height: 20px;
+    background: #fff;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+.dn-clouds::before, .dn-clouds::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+}
+.dn-clouds::before { width: 18px; height: 18px; top: -8px; left: 6px; }
+.dn-clouds::after { width: 24px; height: 24px; top: -12px; right: 8px; }
+
+/* 🌟 深色模式状态 (当开关被点击后) 🌟 */
+.dn-toggle-input:checked + .dn-toggle-label {
+    background: #1A2235; /* 夜晚深蓝 */
+}
+
+.dn-toggle-input:checked + .dn-toggle-label .dn-sun-moon {
+    left: 46px; /* 滑动到右边 */
+    background: transparent;
+    box-shadow: inset -8px -4px 0 0 #F1F1F1; /* 利用内阴影画出月牙！ */
+    transform: rotate(-20deg);
+}
+
+.dn-toggle-input:checked + .dn-toggle-label .dn-clouds {
+    transform: translateY(30px); /* 夜晚云朵下沉隐藏 */
+    opacity: 0;
+}
+/* 1. 强行覆盖主题核心变量：把纯白卡片底色变成半透明白 */
+:root {
+    --card: rgba(255, 255, 255, 0.6) !important;
+}
+/* 夜间模式变量：暗色半透明 */
+html[data-theme="dark"] {
+    --card: rgba(40, 40, 40, 0.4) !important;
+}
+
+/* 2. 给所有的组件容器（侧边栏卡片、中间的文章、顶部的 Tabs）加上毛玻璃和高光边缘 */
+.widget,
+.post-list .post-card,
+.nav-tabs {
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 夜间模式的高光边缘调整得弱一点 */
+html[data-theme="dark"] .widget,
+html[data-theme="dark"] .post-list .post-card,
+html[data-theme="dark"] .nav-tabs {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* 修复文章卡片内的遮挡问题 */
+.post-list .post-card {
+    background: var(--card) !important;
+}
+
+/* 隐藏多余重复的导航栏 (之前加过的保留) */
+.nav-tabs a:nth-child(n+5) { display: none !important; }

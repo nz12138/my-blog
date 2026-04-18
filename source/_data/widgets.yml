@@ -1,0 +1,318 @@
+# 1. 动态欢迎卡片 (带磨砂玻璃特效)
+# 1. 动态欢迎卡片 (纯净版)
+mete0r_welcome:
+  layout: markdown
+  content: |
+    <style>
+    .fog-ip { filter: blur(4px); opacity: 0.8; transition: all 0.4s ease; cursor: pointer; user-select: none; }
+    .fog-ip:hover { filter: blur(0); opacity: 1; user-select: auto; }
+    </style>
+    <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--text-p1);">欢迎 <span id="welcome-location" style="color: #f472b6; font-weight: bold;">地球</span> 的小伙伴</p>
+    <p style="margin: 0 0 8px 0; font-size: 14px; color: var(--text-p1);">您的IP：<span id="welcome-ip" class="fog-ip" style="color: #fff; background: #fbbf24; padding: 2px 8px; border-radius: 8px; font-family: monospace;">正在侦测...</span></p>
+    <p style="margin: 0 0 8px 0; font-size: 14px; color: #7dd3fc; font-weight: bold;">祝你找到属于自己的频率</p>
+    <p style="margin: 0 0 8px 0; font-size: 14px;"><a href="/about/" style="color: #86efac; border-bottom: 1px solid #86efac; text-decoration: none;">我的个人主页</a></p>
+    <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 12px 0;">
+    <p style="font-size: 13px; color: var(--text-p3); margin: 0; line-height: 1.6;">若访问速度异常,请点击左下角邮件反馈</p>
+    
+    <script>
+    fetch('https://api.vvhan.com/api/ipInfo').then(r => r.json()).then(d => {
+    if(d.success) { document.getElementById('welcome-ip').innerText = d.info.ip; document.getElementById('welcome-location').innerText = d.info.prov + d.info.city; }
+    }).catch(e => { document.getElementById('welcome-ip').innerText = '本地测试'; });
+    </script>
+
+mete0r_footer:
+  layout: markdown
+  content: |
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+    /* --- 1. 强行接管整个侧边栏的小组件区域 --- */
+      .leftbar-container .widgets {
+        display: flex !important;
+        flex-direction: column !important;
+        /* 动态计算高度：整个屏幕高度减去顶部头像和菜单的高度 */
+        min-height: calc(100vh - 280px) !important; 
+      }
+
+      /* --- 2. 精准狙击最后一个组件（就是咱们的开关），把它踹到底部 --- */
+      .leftbar-container .widgets > :last-child {
+        margin-top: auto !important; /* 如果内容少，自动把它挤到最底部 */
+        position: sticky !important;
+        bottom: 0 !important; /* 如果内容多（比如文章列表很长），永远吸附在屏幕左下角不随页面滚动消失 */
+        z-index: 99 !important;
+        padding-bottom: 15px !important;
+      }
+      /* --- 1. 强行把整个侧边栏变成可以拉伸的弹性盒子 --- */
+      .leftbar-container {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: calc(100vh - 70px); /* 占据屏幕总高度，减去顶部导航栏 */
+      }
+      
+      /* --- 2. 让装卡片的容器占满剩余的全部空间 --- */
+      .leftbar-container .widgets {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1; 
+      }
+
+      /* --- 3. 核心魔法：把自己挤到最底下 --- */
+      .mete0r-bottom-area { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        padding: 40px 0 25px 0; 
+        margin-top: auto !important; /* 这句是灵魂：自动把上面的空间顶满，死死贴住底部 */
+        width: 100%;
+        z-index: 99;
+      }
+      .social-icons-row { display: flex; gap: 18px; margin-top: 25px; }
+      .social-icons-row a { color: var(--text-color, #555); font-size: 20px; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); text-decoration: none !important; border: none !important; }
+      .social-icons-row a:hover { color: #1BCDFC; transform: translateY(-4px) scale(1.1); }
+      html[data-theme="dark"] .social-icons-row a { color: #ddd; }
+      
+      /* --- 拟物开关外壳 --- */
+      .day-night-switch { position: relative; margin-top: 10px;}
+      .dn-toggle-input { display: none !important; }
+      .dn-toggle-label { display: block; width: 72px; height: 34px; background: #60a5fa; border-radius: 34px; position: relative; cursor: pointer; transition: background 0.6s ease; overflow: hidden; box-shadow: inset 0 2px 6px rgba(0,0,0,0.15); margin: 0 auto;}
+      
+      /* --- 太阳与月亮球体 --- */
+      .dn-sun-moon { position: absolute; width: 26px; height: 26px; background: #FFD43B; border-radius: 50%; top: 4px; left: 4px; transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 3; overflow: hidden;}
+      
+      /* --- 陨石坑 (白天隐藏) --- */
+      .dn-craters { position: absolute; width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; top: 12px; left: 12px; opacity: 0; box-shadow: -5px -6px 0 -1px #94a3b8, 4px -3px 0 -1.5px #94a3b8; transition: opacity 0.3s; }
+      
+      /* --- 白天云朵 --- */
+      .dn-clouds { position: absolute; bottom: -5px; left: 10px; width: 45px; height: 18px; background: #fff; border-radius: 20px; transition: all 0.5s ease; z-index: 2;}
+      .dn-clouds::before, .dn-clouds::after { content: ''; position: absolute; background: #fff; border-radius: 50%; }
+      .dn-clouds::before { width: 16px; height: 16px; top: -6px; left: 6px; }
+      .dn-clouds::after { width: 20px; height: 20px; top: -10px; right: 6px; }
+      
+      /* --- 黑夜星星 (真实四角星) --- */
+      .dn-stars { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(15px); transition: all 0.6s ease; z-index: 1;}
+      .star { position: absolute; background: #fff; clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%); }
+      .star-1 { width: 10px; height: 10px; top: 6px; left: 18px; }
+      .star-2 { width: 7px; height: 7px; top: 20px; left: 12px; }
+      .star-3 { width: 6px; height: 6px; top: 16px; left: 30px; }
+      .star-4 { width: 5px; height: 5px; top: 6px; left: 34px; }
+      
+      /* 🌟 黑夜模式触发状态 🌟 */
+      .dn-toggle-input:checked + .dn-toggle-label { background: #334155; box-shadow: inset 0 3px 8px rgba(0,0,0,0.4); }
+      /* 月亮变灰，滚动到右侧 */
+      .dn-toggle-input:checked + .dn-toggle-label .dn-sun-moon { left: 42px; background: #cbd5e1; transform: rotate(180deg); }
+      /* 显现陨石坑 */
+      .dn-toggle-input:checked + .dn-toggle-label .dn-craters { opacity: 1; transition-delay: 0.2s;}
+      /* 云朵下沉 */
+      .dn-toggle-input:checked + .dn-toggle-label .dn-clouds { transform: translateY(30px); opacity: 0; }
+      /* 星星升起 */
+      .dn-toggle-input:checked + .dn-toggle-label .dn-stars { opacity: 1; transform: translateY(0); }
+    </style>
+
+    <div class="mete0r-bottom-area">
+      <div class="day-night-switch">
+        <input type="checkbox" id="dn-toggle" class="dn-toggle-input">
+        <label for="dn-toggle" class="dn-toggle-label">
+          <div class="dn-sun-moon"><div class="dn-craters"></div></div>
+          <div class="dn-clouds"></div>
+          <div class="dn-stars">
+            <span class="star star-1"></span>
+            <span class="star star-2"></span>
+            <span class="star star-3"></span>
+            <span class="star star-4"></span>
+          </div>
+        </label>
+      </div>
+
+      <div class="social-icons-row">
+        <a href="https://github.com/nz12138" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:n12138z@163.com"><i class="fa-solid fa-envelope"></i></a>
+        <a href="/about/"><i class="fa-solid fa-address-card"></i></a>
+      </div>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        const dnToggle = document.getElementById('dn-toggle');
+        const htmlEl = document.documentElement;
+        if (htmlEl.getAttribute('data-theme') === 'dark' || localStorage.getItem('theme') === 'dark') {
+          dnToggle.checked = true; htmlEl.setAttribute('data-theme', 'dark');
+        }
+        dnToggle.addEventListener('change', function() {
+          const theme = this.checked ? 'dark' : 'light';
+          htmlEl.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+        });
+      }, 100);
+    </script>
+
+# 3. 右侧仿制个人名片 (带 GitHub 实时数据)
+# 3. 右侧仿制个人名片 (纯净版)
+mete0r_author:
+  layout: markdown
+  content: |
+    <style>
+    .author-avatar-img { width: 100px !important; height: 100px !important; border-radius: 50% !important; object-fit: cover !important; border: 3px solid rgba(255,255,255,0.4) !important; margin: 0 auto 12px auto !important; display: block !important; transition: transform 0.5s; }
+    .author-avatar-img:hover { transform: rotate(360deg) scale(1.05); }
+    .author-name-text { font-size: 24px; font-weight: 800; margin: 0 0 8px 0; text-align: center; color: var(--text-p0); }
+    .author-bio-text { font-size: 13px; color: var(--text-p2); line-height: 1.5; margin: 0 0 20px 0; text-align: center; }
+    .author-stats-box { display: flex; justify-content: space-around; margin-bottom: 24px; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; }
+    .stat-count { font-size: 18px; font-weight: bold; color: var(--text-p1); margin-bottom: 2px; }
+    .stat-label { font-size: 12px; color: var(--text-p3); }
+    .author-follow-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #739d73; color: #fff !important; text-decoration: none !important; padding: 10px 0; border-radius: 20px; font-size: 15px; font-weight: 600; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .author-follow-btn:hover { background: #5c805c; transform: translateY(-2px); }
+    </style>
+    
+    <img src="img/my-avatar.jpg" class="author-avatar-img" alt="avatar">
+    <h2 class="author-name-text">孙淮洲</h2>
+    <p class="author-bio-text">工科在读 性格 INFP<br>愿望是世界和平</p>
+    <div class="author-stats-box">
+      <div class="stat-item"><span class="stat-count" id="gh-followers">-</span><span class="stat-label">followers</span></div>
+      <div class="stat-item"><span class="stat-count" id="gh-following">-</span><span class="stat-label">following</span></div>
+      <div class="stat-item"><span class="stat-count" id="gh-repos">-</span><span class="stat-label">repos</span></div>
+    </div>
+    <a href="https://github.com/nz12138" target="_blank" class="author-follow-btn">
+      <i class="fa-brands fa-github"></i> Follow
+    </a>
+
+    <script>
+      const githubID = 'nz12138'; 
+      fetch(`https://api.github.com/users/${githubID}`).then(res => res.json()).then(data => {
+          if(!data.message) {
+            document.getElementById('gh-followers').innerText = data.followers || 0;
+            document.getElementById('gh-following').innerText = data.following || 0;
+            document.getElementById('gh-repos').innerText = data.public_repos || 0;
+          }
+        }).catch(err => console.log('GitHub API error', err));
+    </script>
+
+# 4. 近期动态 (仿照截图中 Timeline 设计，适配玻璃质感)
+# 4. 近期动态 (智能抓取 + 拒绝大框包小框版)
+mete0r_timeline:
+  layout: markdown
+  content: |
+    <style>
+    /* 1. 彻底移除组件自带的背景、阴影和边距，防止大框包小框 */
+    #mete0r_timeline { 
+      background: transparent !important; 
+      box-shadow: none !important; 
+      padding: 0 !important; 
+    }
+    
+    .timeline-wrapper {
+      padding: 10px 5px;
+    }
+    
+    .timeline-title {
+      font-size: 14px;
+      color: var(--text-p3);
+      margin-bottom: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 2. 这里的布局不再使用背景框，而是使用经典时间轴线 */
+    .timeline-container {
+      position: relative;
+      padding-left: 20px;
+      margin-left: 10px;
+      border-left: 2px solid rgba(120, 120, 120, 0.2); /* 贯穿全剧的时间轴线 */
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    /* 时间轴上的圆点 */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      background: var(--card); /* 随主题变色 */
+      border: 2px solid #60a5fa;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-date-label {
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--text-p1);
+      margin-bottom: 4px;
+    }
+
+    .timeline-time-label {
+      font-size: 11px;
+      color: var(--text-p3);
+      margin-bottom: 8px;
+    }
+
+    /* 动态内容：不加背景，直接印在玻璃上 */
+    .timeline-inner-content {
+      font-size: 14px;
+      color: var(--text-p1);
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    .timeline-inner-content img {
+      border-radius: 12px;
+      margin-top: 10px;
+      max-width: 100%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .timeline-footer-link {
+      display: block;
+      text-align: right;
+      font-size: 12px;
+      color: #60a5fa;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: 0.3s;
+    }
+    .timeline-footer-link:hover { color: #93c5fd; }
+    </style>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-title"><i class="fa-solid fa-bolt-lightning"></i> 近期动态</div>
+      
+      <div id="dynamic-timeline-box" class="timeline-container">
+        <!-- JS 自动填充内容 -->
+        <div style="font-size: 13px; color: var(--text-p3);">正在同步信号...</div>
+      </div>
+    </div>
+
+    <script>
+      // 路径已指向你新建的 /api/ 文件夹
+      fetch('/api/timeline.json?t=' + new Date().getTime())
+        .then(res => res.json())
+        .then(data => {
+          const box = document.getElementById('dynamic-timeline-box');
+          let htmlStr = '';
+          
+          // 渲染前 3 条最新动态
+          data.slice(0, 3).forEach(item => {
+            htmlStr += `
+              <div class="timeline-item">
+                <div class="timeline-date-label">${item.date}</div>
+                <div class="timeline-time-label">${item.time}</div>
+                <div class="timeline-inner-content">${item.content}</div>
+                <a href="/speak/" class="timeline-footer-link">查看详情 →</a>
+              </div>
+            `;
+          });
+          
+          box.innerHTML = htmlStr;
+        })
+        .catch(err => {
+          document.getElementById('dynamic-timeline-box').innerHTML = '暂无信号';
+        });
+    </script>
