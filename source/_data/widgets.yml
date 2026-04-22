@@ -20,33 +20,47 @@ mete0r_welcome:
       const elLoc = document.getElementById('welcome-location');
 
       try {
-        const response = await fetch('https://qifu-api.baidubce.com/ip/local/geo/v1/city');
+        // 第一优先级：使用 ip.useragentinfo.com 接口，对国内移动端适配较好
+        const response = await fetch('https://ip.useragentinfo.com/json');
         if (!response.ok) throw new Error('Primary API failed');
         const res = await response.json();
         
-        if (res.code === 'Success' && res.data) {
-          elIp.innerText = res.data.ip || '未知 IP';
-          elLoc.innerText = (res.data.prov || '') + (res.data.city || '');
+        if (res.code === 200) {
+          elIp.innerText = res.ip || '未知 IP';
+          // 优先显示省市，如果移动端只能定位到省，则只显示省
+          const prov = res.province || '';
+          const city = (res.city && res.city !== prov) ? res.city : '';
+          elLoc.innerText = prov + city;
         } else {
           throw new Error('Primary API Invalid Data');
         }
       } catch (err) {
         try {
-          const fallbackRes = await fetch('https://ipapi.co/json/');
-          if (!fallbackRes.ok) throw new Error('Fallback API failed');
-          const fallbackData = await fallbackRes.json();
-          if (fallbackData.error) throw new Error(fallbackData.reason);
-          elIp.innerText = fallbackData.ip || '未知 IP';
-          const country = fallbackData.country_name === 'China' ? '' : (fallbackData.country_name || '');
-          elLoc.innerText = `${country} ${fallbackData.region || ''} ${fallbackData.city || ''}`.trim();
-        } catch (fallbackErr) {
-          // 如果所有接口都失败，再判断是否是本地环境，给出模拟数据
-          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            elIp.innerText = '127.0.0.1';
-            elLoc.innerText = '本地测试环境';
+          // 第二优先级：百度云接口作为备选
+          const response = await fetch('https://qifu-api.baidubce.com/ip/local/geo/v1/city');
+          const res = await response.json();
+          if (res.code === 'Success' && res.data) {
+            elIp.innerText = res.data.ip || '未知 IP';
+            elLoc.innerText = (res.data.prov || '') + (res.data.city || '');
           } else {
-            elIp.innerText = '获取失败';
-            elLoc.innerText = '未知空间';
+            throw new Error('Secondary API failed');
+          }
+        } catch (fallbackErr) {
+          // 如果国内接口都失败，尝试 ipapi.co (国外访问或科学上网环境)
+          try {
+            const fallbackRes = await fetch('https://ipapi.co/json/');
+            const fallbackData = await fallbackRes.json();
+            elIp.innerText = fallbackData.ip || '未知 IP';
+            const country = fallbackData.country_name === 'China' ? '' : (fallbackData.country_name || '');
+            elLoc.innerText = `${country} ${fallbackData.region || ''} ${fallbackData.city || ''}`.trim();
+          } catch (lastErr) {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+              elIp.innerText = '127.0.0.1';
+              elLoc.innerText = '本地测试环境';
+            } else {
+              elIp.innerText = '获取失败';
+              elLoc.innerText = '未知空间';
+            }
           }
         }
       }
