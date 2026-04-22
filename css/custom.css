@@ -1,0 +1,117 @@
+/* =========================================
+   同款效果定制：全局全图背景 + 极致通透玻璃态
+========================================= */
+
+:root {
+    --card: transparent !important; /* 彻底透明，依靠毛玻璃效果 */
+    --card-border: rgba(255, 255, 255, 0.3);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.03);
+    --theme-active: #1BCDFC;
+}
+
+/* 深色模式适配 */
+html[data-theme="dark"] {
+    --card: transparent !important;
+    --card-border: rgba(255, 255, 255, 0.05);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+html[data-theme="dark"] body {
+    background-color: #121316 !important;
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(30, 33, 41, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(22, 24, 36, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(28, 24, 34, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(24, 25, 32, 0.8) 0%, transparent 50%),
+        linear-gradient(180deg, #101115 0%, #15161a 100%) !important;
+}
+
+/* 0. 全局纯 CSS 柔和渐变背景 (仿 lizi.jpg) */
+body {
+    background-color: #f3f5f8 !important; /* 基础底色：极浅偏冷的灰蓝/白 */
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 1) 0%, transparent 50%),    /* 左上角高光 */
+        radial-gradient(circle at 100% 0%, rgba(218, 232, 255, 0.6) 0%, transparent 50%), /* 右上角浅蓝 */
+        radial-gradient(circle at 0% 100%, rgba(255, 235, 238, 0.6) 0%, transparent 50%), /* 左下角浅粉 */
+        radial-gradient(circle at 100% 100%, rgba(230, 235, 245, 0.6) 0%, transparent 50%),/* 右下角淡紫 */
+        linear-gradient(135deg, #f8f9fa 0%, #edf1f7 100%) !important;                     /* 整体基底渐变 */
+    background-size: 100vw 100vh !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 1. 全局卡片质感升级 (去图、透明、毛玻璃) */
+.widget, 
+.post-list .post-card, 
+.nav-tabs, 
+.l_header,
+.l_body .post-card {
+    background-image: none !important; /* 强制移除卡片内部的背景图 */
+    background-color: var(--card) !important; /* 完全透明 */
+    backdrop-filter: blur(20px) saturate(180%) !important; /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-radius: 24px !important;
+    margin-bottom: 20px !important;
+}
+
+/* 2. 侧边栏按钮排版 (同款彩色文字) */
+.menubar .menu-item {
+    background: transparent !important;
+}
+.menubar .menu-item .title {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+/* 3. 顶部导航标签 (Pill样式) */
+.nav-tabs {
+    padding: 8px 16px !important;
+    border-radius: 50px !important;
+    display: inline-flex !important;
+    gap: 8px !important;
+}
+.nav-tabs a {
+    border-radius: 50px !important;
+    padding: 4px 12px !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+}
+.nav-tabs a.active {
+    background: white !important;
+    color: var(--theme-active) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+/* 4. 社交图标栏排版 */
+.mete0r-bottom-area {
+    padding-top: 30px !important;
+}
+.social-icons-row a {
+    opacity: 0.6;
+    filter: grayscale(1);
+    transition: 0.3s;
+}
+.social-icons-row a:hover {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+/* 5. 隐藏滚动条但保留滚动 (让页面更干净) */
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+/* 6. 背景细腻噪点 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: url(https://grainy-gradients.vercel.app/noise.svg);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 999;
+}
