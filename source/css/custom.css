@@ -1,138 +1,117 @@
 /* =========================================
-   侧边栏底部：昼夜开关与社交图标 (Mete0r)
+   同款效果定制：全局全图背景 + 极致通透玻璃态
 ========================================= */
-.mete0r-bottom-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0 20px 0;
-}
 
-/* --- 1. 社交图标排版 --- */
-.social-icons-row {
-    display: flex;
-    gap: 20px; /* 图标间距 */
-    margin-top: 25px;
-}
-
-.social-icons-row a {
-    color: #333 !important; /* 图中那种纯粹的黑色 */
-    font-size: 22px;
-    transition: all 0.3s ease;
-}
-
-.social-icons-row a:hover {
-    color: #1BCDFC !important; /* 悬浮变蓝 */
-    transform: translateY(-3px); /* 悬浮微动 */
-}
-
-/* 深色模式下的图标变成白色 */
-html[data-theme="dark"] .social-icons-row a {
-    color: #ddd !important;
-}
-
-/* --- 2. 可爱的昼夜切换开关 (纯CSS绘制) --- */
-.day-night-switch {
-    position: relative;
-}
-
-.dn-toggle-input {
-    display: none; /* 隐藏原生复选框 */
-}
-
-.dn-toggle-label {
-    display: block;
-    width: 76px;
-    height: 34px;
-    background: #73C0F8; /* 白天天空蓝 */
-    border-radius: 30px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.5s ease;
-    overflow: hidden;
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
-}
-
-/* 太阳 / 月亮 */
-.dn-sun-moon {
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    background: #FFD43B; /* 太阳黄 */
-    border-radius: 50%;
-    top: 4px;
-    left: 4px;
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Q弹动画 */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 2;
-}
-
-/* 云朵 (利用伪元素堆叠画出蓬松感) */
-.dn-clouds {
-    position: absolute;
-    bottom: -6px;
-    left: 12px;
-    width: 50px;
-    height: 20px;
-    background: #fff;
-    border-radius: 20px;
-    transition: all 0.5s ease;
-}
-.dn-clouds::before, .dn-clouds::after {
-    content: '';
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-}
-.dn-clouds::before { width: 18px; height: 18px; top: -8px; left: 6px; }
-.dn-clouds::after { width: 24px; height: 24px; top: -12px; right: 8px; }
-
-/* 🌟 深色模式状态 (当开关被点击后) 🌟 */
-.dn-toggle-input:checked + .dn-toggle-label {
-    background: #1A2235; /* 夜晚深蓝 */
-}
-
-.dn-toggle-input:checked + .dn-toggle-label .dn-sun-moon {
-    left: 46px; /* 滑动到右边 */
-    background: transparent;
-    box-shadow: inset -8px -4px 0 0 #F1F1F1; /* 利用内阴影画出月牙！ */
-    transform: rotate(-20deg);
-}
-
-.dn-toggle-input:checked + .dn-toggle-label .dn-clouds {
-    transform: translateY(30px); /* 夜晚云朵下沉隐藏 */
-    opacity: 0;
-}
-/* 1. 强行覆盖主题核心变量：把纯白卡片底色变成半透明白 */
 :root {
-    --card: rgba(255, 255, 255, 0.6) !important;
+    --card: transparent !important; /* 彻底透明，依靠毛玻璃效果 */
+    --card-border: rgba(255, 255, 255, 0.3);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.03);
+    --theme-active: #1BCDFC;
 }
-/* 夜间模式变量：暗色半透明 */
+
+/* 深色模式适配 */
 html[data-theme="dark"] {
-    --card: rgba(40, 40, 40, 0.4) !important;
+    --card: transparent !important;
+    --card-border: rgba(255, 255, 255, 0.05);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-/* 2. 给所有的组件容器（侧边栏卡片、中间的文章、顶部的 Tabs）加上毛玻璃和高光边缘 */
-.widget,
-.post-list .post-card,
+html[data-theme="dark"] body {
+    background-color: #121316 !important;
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(30, 33, 41, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(22, 24, 36, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(28, 24, 34, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(24, 25, 32, 0.8) 0%, transparent 50%),
+        linear-gradient(180deg, #101115 0%, #15161a 100%) !important;
+}
+
+/* 0. 全局纯 CSS 柔和渐变背景 (仿 lizi.jpg) */
+body {
+    background-color: #f3f5f8 !important; /* 基础底色：极浅偏冷的灰蓝/白 */
+    background-image: 
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 1) 0%, transparent 50%),    /* 左上角高光 */
+        radial-gradient(circle at 100% 0%, rgba(218, 232, 255, 0.6) 0%, transparent 50%), /* 右上角浅蓝 */
+        radial-gradient(circle at 0% 100%, rgba(255, 235, 238, 0.6) 0%, transparent 50%), /* 左下角浅粉 */
+        radial-gradient(circle at 100% 100%, rgba(230, 235, 245, 0.6) 0%, transparent 50%),/* 右下角淡紫 */
+        linear-gradient(135deg, #f8f9fa 0%, #edf1f7 100%) !important;                     /* 整体基底渐变 */
+    background-size: 100vw 100vh !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* 1. 全局卡片质感升级 (去图、透明、毛玻璃) */
+.widget, 
+.post-list .post-card, 
+.nav-tabs, 
+.l_header,
+.l_body .post-card {
+    background-image: none !important; /* 强制移除卡片内部的背景图 */
+    background-color: var(--card) !important; /* 完全透明 */
+    backdrop-filter: blur(20px) saturate(180%) !important; /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-radius: 24px !important;
+    margin-bottom: 20px !important;
+}
+
+/* 2. 侧边栏按钮排版 (同款彩色文字) */
+.menubar .menu-item {
+    background: transparent !important;
+}
+.menubar .menu-item .title {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+/* 3. 顶部导航标签 (Pill样式) */
 .nav-tabs {
-    backdrop-filter: blur(12px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+    padding: 8px 16px !important;
+    border-radius: 50px !important;
+    display: inline-flex !important;
+    gap: 8px !important;
+}
+.nav-tabs a {
+    border-radius: 50px !important;
+    padding: 4px 12px !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+}
+.nav-tabs a.active {
+    background: white !important;
+    color: var(--theme-active) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
 
-/* 夜间模式的高光边缘调整得弱一点 */
-html[data-theme="dark"] .widget,
-html[data-theme="dark"] .post-list .post-card,
-html[data-theme="dark"] .nav-tabs {
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+/* 4. 社交图标栏排版 */
+.mete0r-bottom-area {
+    padding-top: 30px !important;
+}
+.social-icons-row a {
+    opacity: 0.6;
+    filter: grayscale(1);
+    transition: 0.3s;
+}
+.social-icons-row a:hover {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.1);
 }
 
-/* 修复文章卡片内的遮挡问题 */
-.post-list .post-card {
-    background: var(--card) !important;
+/* 5. 隐藏滚动条但保留滚动 (让页面更干净) */
+::-webkit-scrollbar {
+    width: 0px;
 }
 
-/* 隐藏多余重复的导航栏 (之前加过的保留) */
-.nav-tabs a:nth-child(n+5) { display: none !important; }
+/* 6. 背景细腻噪点 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: url(https://grainy-gradients.vercel.app/noise.svg);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 999;
+}
