@@ -115,3 +115,97 @@ body::before {
     pointer-events: none;
     z-index: 999;
 }
+
+/* 7. Twikoo 评论区美化 (匹配毛玻璃与圆角规范) */
+.twikoo .tk-comments {
+    margin-top: 20px;
+}
+.twikoo .tk-submit {
+    background: var(--card) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    border-radius: 20px !important;
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+.twikoo .tk-submit:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+.twikoo .el-textarea__inner, .twikoo .el-input__inner {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    color: #333 !important;
+}
+html[data-theme="dark"] .twikoo .el-textarea__inner, 
+html[data-theme="dark"] .twikoo .el-input__inner {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #eee !important;
+}
+.twikoo .tk-comment {
+    background: var(--card) !important;
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+.twikoo .tk-comment:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+.twikoo .tk-avatar {
+    border-radius: 50% !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.twikoo .tk-action-icon {
+    color: var(--theme-active) !important;
+}
+
+/* 8. 直达评论区悬浮按钮 */
+#fab-comment {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.8;
+}
+html[data-theme="dark"] #fab-comment {
+    background: rgba(30, 30, 30, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #eee;
+}
+#fab-comment:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+    color: var(--theme-active);
+}
+@media (max-width: 768px) {
+    #fab-comment {
+        right: 15px;
+        bottom: 15px;
+        width: 40px;
+        height: 40px;
+    }
+}

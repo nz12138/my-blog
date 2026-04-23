@@ -161,7 +161,7 @@ search:
 
 ######## Comments ########
 comments:
-  service: artalk
+  service: twikoo
   comment_title: 快来参与讨论吧~
   lazyload: false
 
@@ -201,8 +201,8 @@ comments:
     crossorigin: anonymous
 
   twikoo:
-    js: https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js 
-    envId: https://xxx 
+    js: https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js
+    envId: 'https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo'
 
   waline:
     js: https://gcore.jsdelivr.net/npm/@waline/client@3.1/dist/waline.js
@@ -211,15 +211,6 @@ comments:
     serverURL: https://waline.vercel.app
     commentCount: true
     pageview: false
-
-  artalk:
-    css: https://unpkg.com/artalk@2.9/dist/artalk.css
-    js: https://unpkg.com/artalk@2.9/dist/artalk.js
-    server: 'https://artalk-proxy.1766656358.workers.dev'
-    site: '孙淮洲blog'
-    darkMode: auto 
-    fancybox: true 
-    imageUploader:
 
 
 ######## Footer ########
@@ -354,6 +345,8 @@ data_services:
 inject:
   head:
     - '<link rel="stylesheet" href="/css/custom.css">'
+  bottom:
+    - '<div id="fab-comment" title="直达评论区" onclick="const c = document.getElementById(\'comments\'); if (c) { c.scrollIntoView({behavior: \'smooth\'}); } else { window.scrollTo({top: document.body.scrollHeight, behavior: \'smooth\'}); }"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>'
 
 plugins:
   preload:
