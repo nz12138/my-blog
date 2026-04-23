@@ -212,7 +212,7 @@ mete0r_author:
     .author-follow-btn:hover { background: #5c805c; transform: translateY(-2px); }
     </style>
     
-    <img src="img/my-avatar.jpg" class="author-avatar-img" alt="avatar">
+    <img src="/img/my-avatar.jpg" class="author-avatar-img" alt="avatar">
     <h2 class="author-name-text">孙淮洲</h2>
     <p class="author-bio-text">工科在读 性格 INFP<br>愿望是世界和平</p>
     <div class="author-stats-box">

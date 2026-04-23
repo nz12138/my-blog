@@ -8,6 +8,7 @@ subtitle: "Binary Stargazer"
 description: 什么时候解锁Geass啊
 keywords:
 author: 孙淮洲
+avatar: /img/my-avatar.jpg
 language: zh-CN
 # 找到 timezone 这一行，修改如下：
 timezone: 'Asia/Shanghai'
@@ -102,4 +103,6 @@ theme: stellar
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type:
+  type: git
+  repo: https://github.com/nz12138/my-blog
+  branch: main
