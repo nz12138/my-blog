@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/my-avatar.jpg">
 <meta property="article:published_time" content="2026-04-07T07:30:00.000Z">
-<meta property="article:modified_time" content="2026-04-22T13:25:51.024Z">
+<meta property="article:modified_time" content="2026-04-23T10:26:43.965Z">
 <meta property="article:author" content="孙淮洲">
 <meta property="article:tag" content="Hexo教程">
 <meta property="article:tag" content="博客制作">
@@ -50,7 +50,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg"},"dateCreated":"2026-04-07T15:30:00+08:00","dateModified":"2026-04-22T21:25:51+08:00","datePublished":"2026-04-07T15:30:00+08:00","description":"","headline":"利用hexo快速制作 Butterfly 主题个人博客","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/04/07/20260401/"},"publisher":{"@type":"Organization","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg","logo":{"@type":"ImageObject","url":"http://example.com/img/my-avatar.jpg"}},"url":"http://example.com/2026/04/07/20260401/","keywords":"博客制作, Hexo教程","thumbnailUrl":"/img/1.jpg","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg"},"dateCreated":"2026-04-07T15:30:00+08:00","dateModified":"2026-04-23T18:26:43+08:00","datePublished":"2026-04-07T15:30:00+08:00","description":"","headline":"利用hexo快速制作 Butterfly 主题个人博客","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/04/07/20260401/"},"publisher":{"@type":"Organization","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg","logo":{"@type":"ImageObject","url":"http://example.com/img/my-avatar.jpg"}},"url":"http://example.com/2026/04/07/20260401/","keywords":"博客制作, Hexo教程","thumbnailUrl":"/img/1.jpg","image":1}</script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body><div class="sitebg"><div class="siteblur"></div></div><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
@@ -80,7 +80,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%8A%80%E6%9C%AF%E5%AE%9E%E6%88%98/">技术实战</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-04-07T07:30:00.000Z">2026-04-07</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-04-22T13:25:51.024Z">2026-04-22</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-04-07T07:30:00.000Z">2026-04-07</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-04-23T10:26:43.965Z">2026-04-23</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -208,10 +208,10 @@
       <p>快来参与讨论吧~</p>
 
     </section>
-    <section class='body cmt-body artalk'>
+    <section class='body cmt-body twikoo'>
       
 
-<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+<div id="twikoo_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
     </section>
   </div>
 
@@ -878,41 +878,30 @@
   (function() {
     const lazyload = false;
     
-    function initArtalk() {
-      const el = document.getElementById('artalk_container');
+    function initTwikoo() {
+      const el = document.getElementById('twikoo_container');
       if (!el) return;
       
-      function load_artalk() {
-        utils.css('https://unpkg.com/artalk@2.9/dist/artalk.css');
-        utils.js('https://unpkg.com/artalk@2.9/dist/artalk.js', {defer: true}).then(function () {
-          // 监听 Artalk 事件
-          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
-          // Artalk.use((ctx) => {
-          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
-          // })
+      function load_twikoo() {
+        utils.js('https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js', {defer: true}).then(function () {
           const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
-          const artalk = Artalk.init({
-            el: '#artalk_container',
-            pageKey: path,
-            pageTitle: '利用hexo快速制作 Butterfly 主题个人博客',
-            server: 'https://artalk-proxy.1766656358.workers.dev',
-            site: '孙淮洲的小基地',
-            darkMode: 'auto',
-            
-          });
+          twikoo.init(Object.assign({"js":"https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js","envId":"https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo"}, {
+            el: '#twikoo_container',
+            path: path,
+          }));
         });
       }
       
-      util.viewportLazyload(el, load_artalk, lazyload);
+      util.viewportLazyload(el, load_twikoo, lazyload);
     }
     
     // Store in global stellar namespace for PJAX reinitialization
     window.stellar = window.stellar || {};
     window.stellar.initComments = window.stellar.initComments || {};
-    window.stellar.initComments.artalk = initArtalk;
+    window.stellar.initComments.twikoo = initTwikoo;
     
     // Initialize on page load
-    initArtalk();
+    initTwikoo();
   })();
 </script>
 

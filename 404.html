@@ -90,10 +90,10 @@
       <p>快来参与讨论吧~</p>
 
     </section>
-    <section class='body cmt-body artalk'>
+    <section class='body cmt-body twikoo'>
       
 
-<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+<div id="twikoo_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
     </section>
   </div>
 
@@ -755,41 +755,30 @@
   (function() {
     const lazyload = false;
     
-    function initArtalk() {
-      const el = document.getElementById('artalk_container');
+    function initTwikoo() {
+      const el = document.getElementById('twikoo_container');
       if (!el) return;
       
-      function load_artalk() {
-        utils.css('https://unpkg.com/artalk@2.9/dist/artalk.css');
-        utils.js('https://unpkg.com/artalk@2.9/dist/artalk.js', {defer: true}).then(function () {
-          // 监听 Artalk 事件
-          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
-          // Artalk.use((ctx) => {
-          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
-          // })
+      function load_twikoo() {
+        utils.js('https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js', {defer: true}).then(function () {
           const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
-          const artalk = Artalk.init({
-            el: '#artalk_container',
-            pageKey: path,
-            pageTitle: '',
-            server: 'https://artalk-proxy.1766656358.workers.dev',
-            site: '孙淮洲的小基地',
-            darkMode: 'auto',
-            
-          });
+          twikoo.init(Object.assign({"js":"https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js","envId":"https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo"}, {
+            el: '#twikoo_container',
+            path: path,
+          }));
         });
       }
       
-      util.viewportLazyload(el, load_artalk, lazyload);
+      util.viewportLazyload(el, load_twikoo, lazyload);
     }
     
     // Store in global stellar namespace for PJAX reinitialization
     window.stellar = window.stellar || {};
     window.stellar.initComments = window.stellar.initComments || {};
-    window.stellar.initComments.artalk = initArtalk;
+    window.stellar.initComments.twikoo = initTwikoo;
     
     // Initialize on page load
-    initArtalk();
+    initTwikoo();
   })();
 </script>
 
