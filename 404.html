@@ -85,6 +85,18 @@
 </article>
 
 
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>快来参与讨论吧~</p>
+
+    </section>
+    <section class='body cmt-body artalk'>
+      
+
+<div class="artalk with-fancybox" id="artalk_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+    </section>
+  </div>
+
 
 
 <footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">孙淮洲</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。</p>
@@ -738,6 +750,48 @@
 
 
 <!-- optional -->
+
+  <script>
+  (function() {
+    const lazyload = false;
+    
+    function initArtalk() {
+      const el = document.getElementById('artalk_container');
+      if (!el) return;
+      
+      function load_artalk() {
+        utils.css('https://unpkg.com/artalk@2.9/dist/artalk.css');
+        utils.js('https://unpkg.com/artalk@2.9/dist/artalk.js', {defer: true}).then(function () {
+          // 监听 Artalk 事件
+          // FIXME: Artalk开启了懒加载会导致评论输入预览框里的图也变成data-src，导致看不到图
+          // Artalk.use((ctx) => {
+          //   ctx.on('list-loaded', () => window.lazyLoadInstance?.update())
+          // })
+          const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+          const artalk = Artalk.init({
+            el: '#artalk_container',
+            pageKey: path,
+            pageTitle: '',
+            server: 'https://artalk-proxy.1766656358.workers.dev',
+            site: '孙淮洲的小基地',
+            darkMode: 'auto',
+            
+          });
+        });
+      }
+      
+      util.viewportLazyload(el, load_artalk, lazyload);
+    }
+    
+    // Store in global stellar namespace for PJAX reinitialization
+    window.stellar = window.stellar || {};
+    window.stellar.initComments = window.stellar.initComments || {};
+    window.stellar.initComments.artalk = initArtalk;
+    
+    // Initialize on page load
+    initArtalk();
+  })();
+</script>
 
 
 
