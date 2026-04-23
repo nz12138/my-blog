@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: 你的GitHub用户名/你的仓库名 # 这里换成你的实际仓库，例如: user/repo
+  repo: nz12138/my-blog # 这里换成你的实际仓库，例如: user/repo
   branch: main # 你的主分支名称，通常是 main 或 master
   # 注意：由于使用的是 Cloudflare Pages，这里需要配置 OAuth 代理（见第三步）
   base_url: https://noisy-glade-67f3.1766656358.workers.dev
