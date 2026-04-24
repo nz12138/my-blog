@@ -353,7 +353,7 @@ mete0r_timeline:
                 <div class="timeline-date-label">${item.date}</div>
                 <div class="timeline-time-label">${item.time}</div>
                 <div class="timeline-inner-content">${item.content}</div>
-                <a href="/speak/" class="timeline-footer-link">查看详情 →</a>
+                <a href="/speak/#comments" class="timeline-footer-link">发布评论 →</a>
               </div>
             `;
           });
