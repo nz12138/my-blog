@@ -78,43 +78,44 @@ site_tree:
   index_wiki:
     base_dir: wiki 
     menu_id: wiki 
-    leftbar: related, recent 
+    leftbar: related, recent, mete0r_footer 
     rightbar:
     nav_tabs:
   post:
     menu_id: post 
-    leftbar: related, recent 
+    leftbar: related, recent, mete0r_footer 
     rightbar: ghrepo, toc
   topic:
     menu_id: post
+    leftbar: recent, mete0r_footer
   wiki:
     menu_id: wiki 
-    leftbar: tree, related, recent 
+    leftbar: tree, related, recent, mete0r_footer 
     rightbar: ghrepo, toc
   notebooks:
     base_dir: notebooks 
     menu_id: notebooks 
-    leftbar: recent 
+    leftbar: recent, mete0r_footer 
     rightbar: null
   notes:
     menu_id: notebooks
-    leftbar: tagtree, recent 
+    leftbar: tagtree, recent, mete0r_footer 
     rightbar: null
   note:
-    leftbar: tagtree, recent 
+    leftbar: tagtree, recent, mete0r_footer 
     rightbar: toc
   author:
     base_dir: author 
     menu_id: post
-    leftbar: recent, timeline
+    leftbar: recent, timeline, mete0r_footer
     rightbar: timeline
   error_page:
     menu_id: post
     '404': '/404.html'
-    leftbar: recent, timeline
+    leftbar: recent, timeline, mete0r_footer
     rightbar: timeline
   page:
-    leftbar: recent
+    leftbar: recent, mete0r_footer
     rightbar: toc
 
 
@@ -218,15 +219,14 @@ footer:
   social:
   sitemap:
   content: |
-    <div style="text-align: center;">
-      Copyright &copy; 2026 HZ Lab <br>
-      本站已平稳运行：<span id="site_runtime">载入中...</span> <br>
-      累计访问人次：<br>
-      <img src="https://count.getloli.com/get/@hzlab_counter?theme=rule34&padding=7&offset=0" alt="Moe-Counter" style="margin-top: 5px; vertical-align: middle;">
+    <div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+      <p style="margin: 4px 0;">Copyright &copy; 2026 HZ Lab</p>
+      <p style="margin: 4px 0;">本站已平稳运行：<span id="site_runtime" style="color: #1BCDFC; font-weight: bold;">载入中...</span></p>
+      <p style="margin: 4px 0;">累计访问人次：</p>
+      <img src="https://count.getloli.com/get/@hzlab_counter?theme=rule34&padding=7&offset=0" alt="Moe-Counter" style="display: block; margin: 8px auto 0;">
     </div>
     <script>
       function show_runtime() {
-        window.setTimeout("show_runtime()", 1000);
         var start_date = new Date("04/07/2026 15:30:00"); 
         var now_date = new Date();
         var time_diff = now_date.getTime() - start_date.getTime();
@@ -235,6 +235,7 @@ footer:
         var m = Math.floor((time_diff % (3600 * 1000)) / (60 * 1000));
         var s = Math.floor((time_diff % (60 * 1000)) / 1000);
         document.getElementById("site_runtime").innerHTML = d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+        setTimeout(show_runtime, 1000); // 改进了定时器写法，更稳定
       }
       show_runtime();
     </script>
