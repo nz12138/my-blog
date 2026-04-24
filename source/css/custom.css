@@ -168,6 +168,26 @@ html[data-theme="dark"] .twikoo .el-input__inner {
     color: var(--theme-active) !important;
 }
 
+/* =========================================
+   Twikoo 站主标签美化
+========================================= */
+.twikoo .tk-tag-main {
+    background: #1BCDFC !important; /* 站主专属蓝，可自行更换 */
+    color: #fff !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    margin-left: 4px !important;
+    vertical-align: middle !important;
+}
+.twikoo .tk-tag-main::after {
+    content: "站主" !important; /* 强制覆盖文本为 站主 */
+}
+.twikoo .tk-tag-main span {
+    display: none !important; /* 隐藏默认的 博主 或其它文本 */
+}
+
 /* 8. 直达评论区悬浮按钮 */
 #fab-comment {
     position: fixed;
