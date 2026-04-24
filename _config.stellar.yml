@@ -368,10 +368,10 @@ inject:
     - '<script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>'
     - '<script>var vConsole = new VConsole();</script>'
 plugins:
-  preload: false
-    #enable: true
-   # service: flying_pages
-    #flying_pages: https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js
+  preload:
+    enable: true
+    service: flying_pages
+    flying_pages: https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js
 
   pjax:
     enable: false 
