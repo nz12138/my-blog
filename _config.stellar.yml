@@ -31,8 +31,8 @@ structured_data:
 ######## Sidebar ########
 logo:
   avatar: '[/img/my-avatar.jpg](/about/)' # you can set avatar link in _config.yml or '[https://xxx.png](/about/)'
-  title: '[HZZZZ小站](/)' # 搬回您的原标题
-  subtitle: '青山意气峥嵘 | 似为我归来妩媚生' # 搬回您的原副标题
+  title: '[<img src="/img/huaizhou.jpg" class="custom-logo" alt="HZZZZ小站">](/)' # 替换为图片 Logo
+  subtitle: '青山意气峥嵘 |似为我归来妩媚生' # 搬回您的原副标题
 
 menubar:
   columns: 4
@@ -217,10 +217,27 @@ comments:
 footer:
   social:
   sitemap:
-  content: | 
-    本站由 [{author.name}](/) 使用 [{theme.name} {theme.version}]({theme.tree}) 主题创建。
-    本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议。
-
+  content: |
+    <div style="text-align: center;">
+      Copyright &copy; 2026 HZ Lab <br>
+      本站已平稳运行：<span id="site_runtime">载入中...</span> <br>
+      累计访问人次：<br>
+      <img src="https://count.getloli.com/get/@hzlab_counter?theme=rule34&padding=7&offset=0" alt="Moe-Counter" style="margin-top: 5px; vertical-align: middle;">
+    </div>
+    <script>
+      function show_runtime() {
+        window.setTimeout("show_runtime()", 1000);
+        var start_date = new Date("04/07/2026 15:30:00"); 
+        var now_date = new Date();
+        var time_diff = now_date.getTime() - start_date.getTime();
+        var d = Math.floor(time_diff / (24 * 3600 * 1000));
+        var h = Math.floor((time_diff % (24 * 3600 * 1000)) / (3600 * 1000));
+        var m = Math.floor((time_diff % (3600 * 1000)) / (60 * 1000));
+        var s = Math.floor((time_diff % (60 * 1000)) / 1000);
+        document.getElementById("site_runtime").innerHTML = d + " 天 " + h + " 小时 " + m + " 分 " + s + " 秒";
+      }
+      show_runtime();
+    </script>
 
 ######## Tag Plugins ########
 tag_plugins:
