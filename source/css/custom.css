@@ -209,3 +209,21 @@ html[data-theme="dark"] #fab-comment {
         height: 40px;
     }
 }
+
+/* =========================================
+   自定义 Logo 样式 (解决部署不同步问题)
+========================================= */
+.logo-wrap a.title {
+    text-align: center;
+}
+.logo-wrap a.title .custom-logo {
+    height: 32px;
+    width: auto;
+    display: block;
+    margin: 0 auto 4px auto;
+}
+.logo-wrap a.title .sub {
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
