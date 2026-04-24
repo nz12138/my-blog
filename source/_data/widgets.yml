@@ -348,12 +348,16 @@ mete0r_timeline:
           
           // 渲染前 3 条最新动态
           data.slice(0, 3).forEach(item => {
+            let imageHtml = '';
+            if (item.image) {
+              imageHtml = `<img src="${item.image}" alt="动态配图" style="max-height: 120px; object-fit: cover;">`;
+            }
             htmlStr += `
               <div class="timeline-item">
                 <div class="timeline-date-label">${item.date}</div>
                 <div class="timeline-time-label">${item.time}</div>
-                <div class="timeline-inner-content">${item.content}</div>
-                <a href="/speak/#comments" class="timeline-footer-link">去评论 →</a>
+                <div class="timeline-inner-content">${item.content}${imageHtml}</div>
+                <a href="/speak/#comments" class="timeline-footer-link">发布评论 →</a>
               </div>
             `;
           });

@@ -106,6 +106,12 @@ document.addEventListener("DOMContentLoaded", function() {
       data.forEach(item => {
         // 简单处理 content 中的换行符为 <br> 或者 <p>
         let contentHtml = item.content.replace(/\n/g, '<br>');
+        
+        // 处理图片渲染逻辑：如果 JSON 数据里有 image 字段，则拼接 img 标签
+        let imageHtml = '';
+        if (item.image) {
+          imageHtml = `<br><img src="${item.image}" alt="动态配图">`;
+        }
 
         htmlStr += `
           <div class="speak-card">
@@ -115,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
               <div class="speak-card-time">${item.time}</div>
             </div>
             <div class="speak-card-body">
-              ${contentHtml}
+              ${contentHtml}${imageHtml}
             </div>
           </div>
         `;
