@@ -102,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       let htmlStr = '';
+      // 翻转数组，使最新动态在最上
+      data.reverse();
       // 遍历渲染所有动态
       data.forEach(item => {
         // 简单处理 content 中的换行符为 <br> 或者 <p>

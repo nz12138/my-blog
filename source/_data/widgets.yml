@@ -433,8 +433,10 @@ mete0r_timeline:
           const box = document.getElementById('dynamic-timeline-box');
           let htmlStr = '';
           
-          // 渲染前 3 条最新动态
-          data.slice(0, 3).forEach(item => {
+          // 翻转数组，使最新动态在最上
+          data.reverse();
+          // 渲染所有动态
+          data.forEach(item => {
             let imageHtml = '';
             if (item.image) {
               imageHtml = `<img src="${item.image}" alt="动态配图" style="max-height: 120px; object-fit: cover;">`;
