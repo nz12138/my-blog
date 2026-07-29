@@ -41,10 +41,10 @@ menubar:
       theme: '#1BCDFC'
       title: '主页'
       url: /
-    - id: about
+    - id: wiki
       theme: '#3DC550'
       title: '项目' # 搬回您的原菜单名
-      url: /about/
+      url: /categories/项目/
     - id: speak
       theme: '#FA6400'
       title: '动态' # 搬回您的原菜单名
@@ -78,8 +78,8 @@ site_tree:
   index_wiki:
     base_dir: wiki 
     menu_id: wiki 
-    leftbar: related, recent, mete0r_footer 
-    rightbar:
+    leftbar: mete0r_welcome, recent, mete0r_footer 
+    rightbar: mete0r_author, mete0r_timeline
     nav_tabs:
   post:
     menu_id: post 
@@ -90,8 +90,8 @@ site_tree:
     leftbar: recent, mete0r_footer
   wiki:
     menu_id: wiki 
-    leftbar: tree, related, recent, mete0r_footer 
-    rightbar: ghrepo, toc
+    leftbar: mete0r_welcome, tree, recent, mete0r_footer 
+    rightbar: mete0r_author, mete0r_timeline, toc
   notebooks:
     base_dir: notebooks 
     menu_id: notebooks 

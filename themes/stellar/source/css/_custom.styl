@@ -94,6 +94,102 @@ $border-button = 8px
 // 动态计算值
 :root
   // 元素文本内容到容器边缘的间距
+@require('_defines/const')
+
+
+// font family
+$ff-body = convert(hexo-config('style.font-family.body'))
+$ff-code = convert(hexo-config('style.font-family.code'))
+$ff-codeblock = convert(hexo-config('style.font-family.codeblock'))
+
+// font size
+$fs-root = convert(hexo-config('style.font-size.root'))
+$fs-15 = .9375rem
+$fs-14 = .875rem
+$fs-13 = .8125rem
+$fs-12 = .75rem
+
+$fs-body = convert(hexo-config('style.font-size.body'))
+$fs-code = convert(hexo-config('style.font-size.code'))
+$fs-codeblock = convert(hexo-config('style.font-size.codeblock'))
+
+$fsh1 = 'calc(%s + 9px)' % $fs-body
+$fsh2 = 'calc(%s + 11px)' % $fs-body
+$fsh3 = 'calc(%s + 7px)' % $fs-body
+$fsh4 = 'calc(%s + 4px)' % $fs-body
+$fsh5 = 'calc(%s + 2px)' % $fs-body
+
+$fsp0 = 'calc(%s - 0px)' % $fs-body
+$fsp1 = 'calc(%s - 1px)' % $fs-body
+$fsp2 = 'calc(%s - 2px)' % $fs-body
+$fsp3 = 'calc(%s - 3px)' % $fs-body
+
+// site main
+$site-background-image = hexo-config('style.site.background-image')
+$leftbar-background-image = hexo-config('style.leftbar.background-image')
+$leftbar-background-color-light = hexo-config('style.leftbar.background-color-light')
+$leftbar-background-color-dark = hexo-config('style.leftbar.background-color-dark')
+
+
+// colors
+$c-theme = convert(hexo-config('style.color.theme'))
+$c-accent = convert(hexo-config('style.color.accent'))
+$c-link = convert(hexo-config('style.color.link'))
+
+$c-base-hue = 210deg // 背景/文本颜色的主基调（一般看不出来不需要修改）
+
+// icons
+
+$iQuoteLeft = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='currentColor' d='M3.691 6.292C5.094 4.771 7.217 4 10 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 6.925 10H10a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2H3a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789M20 20h-6a1 1 0 0 1-1-1v-5l.003-2.919c-.009-.111-.199-2.741 1.688-4.789C16.094 4.771 18.217 4 21 4h1v2.819l-.804.161c-1.37.274-2.323.813-2.833 1.604A2.9 2.9 0 0 0 17.925 10H21a1 1 0 0 1 1 1v7c0 1.103-.897 2-2 2'/%3E%3C/svg%3E"
+$iQuoteRight = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from BoxIcons Solid by Atisa - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='currentColor' d='M20.309 17.708C22.196 15.66 22.006 13.03 22 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292m-11.007 0C11.19 15.66 10.999 13.03 10.993 13V5a1 1 0 0 0-1-1h-6c-1.103 0-2 .897-2 2v7a1 1 0 0 0 1 1h3.078a2.9 2.9 0 0 1-.429 1.396c-.508.801-1.465 1.348-2.846 1.624l-.803.16V20h1c2.783 0 4.906-.771 6.309-2.292'/%3E%3C/svg%3E"
+
+$iH3Left = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='currentColor' fill-rule='evenodd' d='M13.488 4.43a.75.75 0 0 1 .081 1.058L7.988 12l5.581 6.512a.75.75 0 1 1-1.138.976l-6-7a.75.75 0 0 1 0-.976l6-7a.75.75 0 0 1 1.057-.081' clip-rule='evenodd'/%3E%3Cpath fill='currentColor' d='M17.75 5a.75.75 0 0 0-1.32-.488l-6 7a.75.75 0 0 0 0 .976l6 7A.75.75 0 0 0 17.75 19z'/%3E%3C/svg%3E"
+$iH3Right = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='currentColor' fill-rule='evenodd' d='M10.512 4.43a.75.75 0 0 0-.081 1.058L16.012 12l-5.581 6.512a.75.75 0 1 0 1.138.976l6-7a.75.75 0 0 0 0-.976l-6-7a.75.75 0 0 0-1.057-.081' clip-rule='evenodd'/%3E%3Cpath fill='currentColor' d='M6.25 5a.75.75 0 0 1 1.32-.488l6 7a.75.75 0 0 1 0 .976l-6 7A.75.75 0 0 1 6.25 19z'/%3E%3C/svg%3E"
+
+$iLoadingIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%231cd0fd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath stroke-dasharray='16' stroke-dashoffset='16' d='M12 3c4.97 0 9 4.03 9 9'%3E%3Canimate fill='freeze' attributeName='stroke-dashoffset' dur='0.6s' values='16;0'/%3E%3CanimateTransform attributeName='transform' dur='3s' repeatCount='indefinite' type='rotate' values='0 12 12;360 12 12'/%3E%3C/path%3E%3Cpath stroke-dasharray='64' stroke-dashoffset='64' stroke-opacity='0.3' d='M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z'%3E%3Canimate fill='freeze' attributeName='stroke-dashoffset' dur='2.4s' values='64;0'/%3E%3C/path%3E%3C/g%3E%3C/svg%3E"
+
+
+$border-card-l = convert(hexo-config('style.border-radius.card-l'))
+$border-card = convert(hexo-config('style.border-radius.card'))
+$border-card-s = convert(hexo-config('style.border-radius.card-s'))
+$border-bar = convert(hexo-config('style.border-radius.bar'))
+$border-image-l = convert(hexo-config('style.border-radius.image-l'))
+$border-image = convert(hexo-config('style.border-radius.image'))
+$border-image-s = convert(hexo-config('style.border-radius.image-s'))
+$border-button = 8px
+
+// 可以动态变化的属性
+:root
+  --width-main: 720px
+  --fsp: $fs-body
+  --fsh2: 'calc(%s + 11px)' % var(--fsp)
+  --fsh3: 'calc(%s + 7px)' % var(--fsp)
+  --fsh4: 'calc(%s + 4px)' % var(--fsp)
+  
+  // 侧边栏文字内容宽度
+  --side-content-width: 224px
+  // 元素轮廓到容器边缘的间距
+  --gap-margin: 16px
+  // 元素文本内容到元素自身的轮廓的间距
+  --gap-padding: 16px
+  
+  --gap-p: 'calc(%s + 4px)' % $fs-body // gap for paragraph
+  --gap-p-compact: 'calc(%s * 0.75)' % $fs-body
+  // desktop 2k or larger
+  @media screen and (min-width: $device-2k)
+    --width-main: 780px
+  // desktop 4k or larger
+  @media screen and (min-width: $device-4k)
+    --width-main: 860px
+  // iPad 竖屏
+  @media screen and (max-width: $device-tablet)
+    --side-content-width: 188px
+  @media screen and (max-width: $device-mobile-max)
+    --side-content-width: 224px
+
+// 动态计算值
+:root
+  // 元素文本内容到容器边缘的间距
   --gap-max: calc(var(--gap-margin) + var(--gap-padding))
 
 // shadow
@@ -103,3 +199,182 @@ $boxshadow-card-float = 0 12px 16px -4px rgba(0, 0, 0, 0.2)
 $boxshadow-button = 0 0 2px 0px rgba(0, 0, 0, 0.04), 0 0 8px 0px rgba(0, 0, 0, 0.04)
 $boxshadow-block = 0 1px 4px 0px rgba(0, 0, 0, 0.02), 0 2px 8px 0px rgba(0, 0, 0, 0.02)
 $boxshadow-toast = 0 4px 8px 0px rgba(0, 0, 0, 0.1), 0 12px 16px -4px rgba(0, 0, 0, 0.2)
+
+// ==========================================
+// Tags Layout (Premium Golden Skill Tree - 金枝玉叶)
+// ==========================================
+
+// Glowing Pulse Animation
+@keyframes pulseGold {
+  0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+}
+
+@keyframes floatTag {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+article#tags
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  padding: 60px 0
+  margin-top: 20px
+  background: transparent
+
+  // 1. The Glowing Central Axis (流金中轴线)
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 50%
+    width: 2px 
+    background: linear-gradient(to bottom, transparent, #eab308 10%, #eab308 90%, transparent)
+    transform: translateX(-50%)
+    z-index: 0
+    box-shadow: 0 0 15px #eab308, 0 0 5px #eab308 // Intense glow
+
+  a.tag
+    display: flex
+    width: 50%
+    position: relative
+    text-decoration: none
+    background: transparent !important
+    border: none !important
+    box-shadow: none !important
+    z-index: 1
+    animation: floatTag 6s ease-in-out infinite // Float effect
+    
+    // Kill the default '#' added by the theme
+    &:before
+      content: none !important
+      display: none !important
+
+    // Delay the floating animation randomly for each tag (pseudo-random using nth-child)
+    &:nth-child(2n)
+      animation-delay: -1s
+    &:nth-child(3n)
+      animation-delay: -2s
+    &:nth-child(5n)
+      animation-delay: -3s
+
+    // ----------------------------------------
+    // Odd Tags (Left side tags)
+    // ----------------------------------------
+    &:nth-child(odd)
+      align-self: flex-start
+      justify-content: flex-end
+      padding-right: 60px
+      margin: 20px 0
+      
+      // The Golden Branch (金枝)
+      &::after
+        content: ''
+        position: absolute
+        top: 50%
+        right: 0
+        width: 60px
+        height: 40px
+        border-bottom: 2px solid #eab308
+        border-left: 2px solid #eab308
+        border-bottom-left-radius: 12px // Crisp, techy curve
+        transform: translateY(-50%)
+        box-shadow: -2px 2px 5px rgba(234, 179, 8, 0.4) // Glow on the branch
+        transition: all 0.3s ease
+        z-index: 0
+        
+      // Glowing Node (能量节点)
+      span.name::before
+        content: ''
+        position: absolute
+        right: -36px // Aligns exactly on the corner of the branch
+        top: 50%
+        transform: translateY(-50%)
+        width: 8px
+        height: 8px
+        border-radius: 50%
+        background: #fff
+        border: 2px solid #eab308
+        box-shadow: 0 0 10px #eab308
+        z-index: 3
+        animation: pulseGold 2s infinite
+
+    // ----------------------------------------
+    // Even Tags (Right side tags)
+    // ----------------------------------------
+    &:nth-child(even)
+      align-self: flex-end
+      justify-content: flex-start
+      padding-left: 60px
+      margin: -20px 0 20px 0
+      
+      // The Golden Branch (金枝)
+      &::after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 0
+        width: 60px
+        height: 40px
+        border-bottom: 2px solid #eab308
+        border-right: 2px solid #eab308
+        border-bottom-right-radius: 12px // Crisp, techy curve
+        transform: translateY(-50%)
+        box-shadow: 2px 2px 5px rgba(234, 179, 8, 0.4) // Glow on the branch
+        transition: all 0.3s ease
+        z-index: 0
+        
+      // Glowing Node (能量节点)
+      span.name::before
+        content: ''
+        position: absolute
+        left: -36px
+        top: 50%
+        transform: translateY(-50%)
+        width: 8px
+        height: 8px
+        border-radius: 50%
+        background: #fff
+        border: 2px solid #eab308
+        box-shadow: 0 0 10px #eab308
+        z-index: 3
+        animation: pulseGold 2s infinite
+        animation-delay: -1s
+
+    // ----------------------------------------
+    // Glassmorphism Jade Tag (琉璃玉牌)
+    // ----------------------------------------
+    span.name
+      background: rgba(255, 255, 255, 0.6)
+      backdrop-filter: blur(10px) // Glass effect!
+      -webkit-backdrop-filter: blur(10px)
+      color: #333 !important
+      border: 1px solid rgba(234, 179, 8, 0.5) // Golden rim
+      border-radius: 8px
+      padding: 10px 24px
+      position: relative
+      z-index: 2
+      font-weight: 600
+      font-size: 1rem
+      letter-spacing: 1px
+      box-shadow: 0 8px 32px 0 rgba(234, 179, 8, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.5)
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+
+    // ----------------------------------------
+    // Hover Interaction (激活态)
+    // ----------------------------------------
+    &:hover span.name
+      background: rgba(234, 179, 8, 0.15) // Golden tint
+      border-color: rgba(234, 179, 8, 0.9)
+      color: #b45309 !important // Deep gold text
+      transform: scale(1.08)
+      box-shadow: 0 8px 32px 0 rgba(234, 179, 8, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.8)
+      text-shadow: 0 0 8px rgba(234, 179, 8, 0.4)
+
+    &:hover::after
+      border-color: #f59e0b
+      box-shadow: 0 0 10px #f59e0b // Branch glows more!
