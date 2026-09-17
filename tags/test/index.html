@@ -85,42 +85,60 @@ async function fetchIpInfo() {
     return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(timer));
   }
 
+  // JSONP 封装 (专用于 Pconline，解决 CORS 和 GBK 乱码问题)
+  function fetchPconline() {
+    return new Promise((resolve, reject) => {
+      const cbName = 'ipcb_' + Math.round(Math.random() * 100000);
+      window[cbName] = function(data) {
+        delete window[cbName];
+        script.remove();
+        resolve(data);
+      };
+      const script = document.createElement('script');
+      script.src = `https://whois.pconline.com.cn/ipJson.jsp?callback=${cbName}`;
+      script.charset = 'GBK';
+      script.onerror = () => reject(new Error('JSONP failed'));
+      document.head.appendChild(script);
+      // 超时处理
+      setTimeout(() => reject(new Error('JSONP timeout')), 4000);
+    });
+  }
+
   try {
-    // 优先级1：ip-api.com — 免费、支持 CORS、支持中文、国内外都能用
-    const r1 = await fetchWithTimeout('http://ip-api.com/json/?lang=zh-CN&fields=status,query,country,regionName,city', 4000);
-    const d1 = await r1.json();
-    if (d1.status === 'success') {
-      elIp.innerText = d1.query || '未知 IP';
-      const isChina = d1.country === '中国';
-      elLoc.innerText = isChina
-        ? (d1.regionName || '') + (d1.city && d1.city !== d1.regionName ? d1.city : '')
-        : (d1.country || '') + ' ' + (d1.regionName || '');
+    // 优先级1：太平洋电脑网 (国内极速，返回纯正中文)
+    const d1 = await fetchPconline();
+    if (d1 && d1.ip) {
+      elIp.innerText = d1.ip || '未知 IP';
+      let prov = d1.pro || '';
+      let city = d1.city || '';
+      elLoc.innerText = prov + (city && city !== prov ? ' ' + city : '');
+      if (!elLoc.innerText.trim()) elLoc.innerText = (d1.addr || '').replace(' ', '') || '未知空间';
       return;
     }
-    throw new Error('ip-api failed');
   } catch (_) {}
 
   try {
-    // 优先级2：ipwho.is — HTTPS、全球可用、无需 key
+    // 优先级2：ipwho.is
     const r2 = await fetchWithTimeout('https://ipwho.is/', 4000);
     const d2 = await r2.json();
     if (d2.success !== false) {
       elIp.innerText = d2.ip || '未知 IP';
-      const isChina = d2.country_code === 'CN';
-      elLoc.innerText = isChina
-        ? (d2.region || '') + (d2.city && d2.city !== d2.region ? d2.city : '')
-        : (d2.country || '') + ' ' + (d2.region || '');
+      let prov = d2.region || '';
+      let city = d2.city || '';
+      elLoc.innerText = prov + (city && city !== prov ? ' ' + city : '');
       return;
     }
     throw new Error('ipwho failed');
   } catch (_) {}
 
   try {
-    // 优先级3：ipinfo.io — 稳定、HTTPS、每月 50k 次免费
+    // 优先级3：ipinfo.io
     const r3 = await fetchWithTimeout('https://ipinfo.io/json', 4000);
     const d3 = await r3.json();
     elIp.innerText = d3.ip || '未知 IP';
-    elLoc.innerText = (d3.country === 'CN' ? '' : (d3.country || '') + ' ') + (d3.region || '') + ' ' + (d3.city || '');
+    let prov = d3.region || '';
+    let city = d3.city || '';
+    elLoc.innerText = prov + (city && city !== prov ? ' ' + city : '');
     elLoc.innerText = elLoc.innerText.trim() || '未知空间';
     return;
   } catch (_) {}
