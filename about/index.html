@@ -309,7 +309,7 @@
 </ul>
 <p><strong>联系我：</strong></p>
 <ul>
-<li>Email: <a href="mailto:&#x6e;&#49;&#x32;&#49;&#x33;&#x38;&#x7a;&#x40;&#x31;&#54;&#x33;&#46;&#x63;&#111;&#109;">n12138z@163.com</a></li>
+<li>Email: <a href="mailto:&#110;&#49;&#50;&#x31;&#x33;&#x38;&#x7a;&#64;&#49;&#x36;&#51;&#46;&#x63;&#x6f;&#x6d;">n12138z@163.com</a></li>
 <li>github: <a target="_blank" rel="noopener" href="https://github.com/nz12138">https://github.com/nz12138</a></li>
 <li>qq: 1766656358</li>
 </ul>
@@ -1012,9 +1012,9 @@
       if (!el) return;
       
       function load_twikoo() {
-        utils.js('https://gcore.jsdelivr.net/npm/twikoo@1.7.7/dist/twikoo.all.min.js', {defer: true}).then(function () {
+        utils.js('https://cdn.staticfile.net/twikoo/1.7.7/twikoo.all.min.js', {defer: true}).then(function () {
           const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
-          twikoo.init(Object.assign({"js":"https://gcore.jsdelivr.net/npm/twikoo@1.7.7/dist/twikoo.all.min.js","envId":"https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo"}, {
+          twikoo.init(Object.assign({"js":"https://cdn.staticfile.net/twikoo/1.7.7/twikoo.all.min.js","envId":"https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo"}, {
             el: '#twikoo_container',
             path: path,
           }));
