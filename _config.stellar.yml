@@ -202,7 +202,7 @@ comments:
     crossorigin: anonymous
 
   twikoo:
-    js: https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js
+    js: https://cdn.staticfile.net/twikoo/1.7.7/twikoo.all.min.js
     envId: 'https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo'
 
   waline:
