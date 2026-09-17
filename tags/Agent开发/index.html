@@ -76,54 +76,65 @@
 async function fetchIpInfo() {
   const elIp = document.getElementById('welcome-ip');
   const elLoc = document.getElementById('welcome-location');
+  if (!elIp || !elLoc) return;
+
+  // 带超时的 fetch 封装
+  function fetchWithTimeout(url, ms = 5000) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(timer));
+  }
 
   try {
-    // 第一优先级：使用 ip.useragentinfo.com 接口，对国内移动端适配较好
-    const response = await fetch('https://ip.useragentinfo.com/json');
-    if (!response.ok) throw new Error('Primary API failed');
-    const res = await response.json();
-    
-    if (res.code === 200) {
-      elIp.innerText = res.ip || '未知 IP';
-      // 优先显示省市，如果移动端只能定位到省，则只显示省
-      const prov = res.province || '';
-      const city = (res.city && res.city !== prov) ? res.city : '';
-      elLoc.innerText = prov + city;
-    } else {
-      throw new Error('Primary API Invalid Data');
+    // 优先级1：ip-api.com — 免费、支持 CORS、支持中文、国内外都能用
+    const r1 = await fetchWithTimeout('http://ip-api.com/json/?lang=zh-CN&fields=status,query,country,regionName,city', 4000);
+    const d1 = await r1.json();
+    if (d1.status === 'success') {
+      elIp.innerText = d1.query || '未知 IP';
+      const isChina = d1.country === '中国';
+      elLoc.innerText = isChina
+        ? (d1.regionName || '') + (d1.city && d1.city !== d1.regionName ? d1.city : '')
+        : (d1.country || '') + ' ' + (d1.regionName || '');
+      return;
     }
-  } catch (err) {
-    try {
-      // 第二优先级：百度云接口作为备选
-      const response = await fetch('https://qifu-api.baidubce.com/ip/local/geo/v1/city');
-      const res = await response.json();
-      if (res.code === 'Success' && res.data) {
-        elIp.innerText = res.data.ip || '未知 IP';
-        elLoc.innerText = (res.data.prov || '') + (res.data.city || '');
-      } else {
-        throw new Error('Secondary API failed');
-      }
-    } catch (fallbackErr) {
-      // 如果国内接口都失败，尝试 ipapi.co (国外访问或科学上网环境)
-      try {
-        const fallbackRes = await fetch('https://ipapi.co/json/');
-        const fallbackData = await fallbackRes.json();
-        elIp.innerText = fallbackData.ip || '未知 IP';
-        const country = fallbackData.country_name === 'China' ? '' : (fallbackData.country_name || '');
-        elLoc.innerText = `${country} ${fallbackData.region || ''} ${fallbackData.city || ''}`.trim();
-      } catch (lastErr) {
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          elIp.innerText = '127.0.0.1';
-          elLoc.innerText = '本地测试环境';
-        } else {
-          elIp.innerText = '获取失败';
-          elLoc.innerText = '未知空间';
-        }
-      }
+    throw new Error('ip-api failed');
+  } catch (_) {}
+
+  try {
+    // 优先级2：ipwho.is — HTTPS、全球可用、无需 key
+    const r2 = await fetchWithTimeout('https://ipwho.is/', 4000);
+    const d2 = await r2.json();
+    if (d2.success !== false) {
+      elIp.innerText = d2.ip || '未知 IP';
+      const isChina = d2.country_code === 'CN';
+      elLoc.innerText = isChina
+        ? (d2.region || '') + (d2.city && d2.city !== d2.region ? d2.city : '')
+        : (d2.country || '') + ' ' + (d2.region || '');
+      return;
     }
+    throw new Error('ipwho failed');
+  } catch (_) {}
+
+  try {
+    // 优先级3：ipinfo.io — 稳定、HTTPS、每月 50k 次免费
+    const r3 = await fetchWithTimeout('https://ipinfo.io/json', 4000);
+    const d3 = await r3.json();
+    elIp.innerText = d3.ip || '未知 IP';
+    elLoc.innerText = (d3.country === 'CN' ? '' : (d3.country || '') + ' ') + (d3.region || '') + ' ' + (d3.city || '');
+    elLoc.innerText = elLoc.innerText.trim() || '未知空间';
+    return;
+  } catch (_) {}
+
+  // 全部失败
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    elIp.innerText = '127.0.0.1';
+    elLoc.innerText = '本地测试环境';
+  } else {
+    elIp.innerText = '获取失败';
+    elLoc.innerText = '未知空间';
   }
 }
-setTimeout(fetchIpInfo, 500);
+setTimeout(fetchIpInfo, 300);
 </script>
 </div></widget>
 
