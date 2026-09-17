@@ -1,0 +1,92 @@
+// D:\博客代码\my-blog\source\js\particles_title.js
+
+let scene, camera, renderer;
+let backgroundParticles, textParticles;
+let textTargets = []; 
+let mouseX = 0, mouseY = 0;
+let windowHalfX = window.innerWidth / 2;
+let windowHalfY = window.innerHeight / 2;
+
+function init() {
+    const container = document.getElementById('canvas-container');
+    if (!container) return; // 如果找不到容器就不执行，防止报错
+
+    scene = new THREE.Scene();
+    // 💡 关键修改：取消背景色，让它是透明的，才能看到你的二次元背景图
+    scene.fog = new THREE.FogExp2(0x020205, 0.0006);
+
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4000);
+    camera.position.z = 1200;
+
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = 64;
+    canvas.height = 64;
+    const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gradient.addColorStop(0, 'rgba(255,255,255,1)');
+    gradient.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+    gradient.addColorStop(0.5, 'rgba(100,200,255,0.2)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 64, 64);
+    const particleTexture = new THREE.CanvasTexture(canvas);
+
+    // 💡 如果你只想留文字，可以把下面这行注释掉
+    createBackgroundStars(particleTexture);
+
+    // 💡 文字改成了你图片里的标题
+    createTextParticles('孙淮洲的个人博客', particleTexture);
+
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true 必须开启
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 💡 这里的透明度设为0，确保完全透出背景图
+    renderer.setClearColor(0x000000, 0); 
+    
+    container.appendChild(renderer.domElement);
+
+    updateResponsiveState();
+
+    document.addEventListener('mousemove', onDocumentMouseMove);
+    window.addEventListener('mousedown', shatterParticles);
+    window.addEventListener('resize', onWindowResize);
+}
+
+// ... 这里省略你原代码中的 createBackgroundStars, createTextParticles 等函数 ...
+// (请把你原 HTML 中 <script> 标签内剩下的所有函数全部粘贴到这里)
+
+// 启动渲染循环
+function animate() {
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render() {
+    const time = Date.now() * 0.00005;
+    camera.position.x += (mouseX * 0.6 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY * 0.6 - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
+
+    if (backgroundParticles) {
+        backgroundParticles.rotation.y = time * 0.3;
+        backgroundParticles.rotation.z = time * 0.1;
+    }
+
+    if (textParticles && textTargets.length > 0) {
+        const positions = textParticles.geometry.attributes.position.array;
+        for (let i = 0; i < textTargets.length; i++) {
+            positions[i * 3] += (textTargets[i].x - positions[i * 3]) * 0.03;
+            positions[i * 3 + 1] += (textTargets[i].y - positions[i * 3 + 1]) * 0.03;
+            positions[i * 3 + 2] += (textTargets[i].z - positions[i * 3 + 2]) * 0.03;
+        }
+        textParticles.geometry.attributes.position.needsUpdate = true;
+        textParticles.position.y = Math.sin(time * 20) * 15;
+    }
+    renderer.render(scene, camera);
+}
+
+// 确保在页面加载完后执行
+window.addEventListener('load', () => {
+    init();
+    animate();
+});

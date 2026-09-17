@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 8.1.1">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -17,24 +17,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>归档 - 孙淮洲的个人博客</title>
+  <title>初学嵌入式硬件的一些总结 - 孙淮洲的个人博客</title>
 
   
-    <meta name="description" content="什么时候解锁Geass啊">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://example.com/archives/2026/04/">
+    <meta name="description" content="终于开始接入嵌入式开发了 并没有一上来就开始啃课啃教材，我想做中学，好玩又深刻，所以去打了学校电子协会的一个小比赛 还是非常痛苦的！连最基础的嘉立创eda都不会操作，搞得头大，不过熬一熬也就过来了！现在还算有点小小的收获，所以写这篇文章记录一下 首先就是大家最关心的咋用ai辅助自己的嵌入式硬件学习，呃呃，我惯用ai学习的人在这里吃瘪了！ pcb图和原理图（或者你自己面包板，pcb版的接线）细节太多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初学嵌入式硬件的一些总结">
+<meta property="og:url" content="http://example.com/2026/05/01/2026-05-1/">
 <meta property="og:site_name" content="孙淮洲的个人博客">
-<meta property="og:description" content="什么时候解锁Geass啊">
+<meta property="og:description" content="终于开始接入嵌入式开发了 并没有一上来就开始啃课啃教材，我想做中学，好玩又深刻，所以去打了学校电子协会的一个小比赛 还是非常痛苦的！连最基础的嘉立创eda都不会操作，搞得头大，不过熬一熬也就过来了！现在还算有点小小的收获，所以写这篇文章记录一下 首先就是大家最关心的咋用ai辅助自己的嵌入式硬件学习，呃呃，我惯用ai学习的人在这里吃瘪了！ pcb图和原理图（或者你自己面包板，pcb版的接线）细节太多">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/my-avatar.jpg">
+<meta property="article:published_time" content="2026-04-30T17:30:00.000Z">
+<meta property="article:modified_time" content="2026-05-15T05:43:13.131Z">
 <meta property="article:author" content="孙淮洲">
-<meta name="twitter:card" content="summary">
+<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="硬件制作">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/my-avatar.jpg">
   
   
   
-  
+  <meta name="keywords" content="嵌入式,硬件制作">
 
   <!-- feed -->
   
@@ -46,10 +50,10 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Website","@id":"http://example.com","author":{"@type":"Person","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg"},"name":"孙淮洲的个人博客","description":"什么时候解锁Geass啊","url":"http://example.com"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg"},"dateCreated":"2026-05-01T01:30:00+08:00","dateModified":"2026-05-15T13:43:13+08:00","datePublished":"2026-05-01T01:30:00+08:00","description":"","headline":"初学嵌入式硬件的一些总结","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/05/01/2026-05-1/"},"publisher":{"@type":"Organization","name":"孙淮洲","sameAs":[],"image":"http://example.com/img/my-avatar.jpg","logo":{"@type":"ImageObject","url":"http://example.com/img/my-avatar.jpg"}},"url":"http://example.com/2026/05/01/2026-05-1/","keywords":"嵌入式, 硬件制作","thumbnailUrl":"/img/5.jpg","image":1}</script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
-<body><div class="sitebg"><div class="siteblur"></div></div><div id="l_cover"></div><div class="l_body index" id="start" layout="undefined" type="undefined" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+<body><div class="sitebg"><div class="siteblur"></div></div><div id="l_cover"></div><div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/img/my-avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main"><img src="/img/huaizhou.jpg" class="custom-logo" alt="HZZZZ小站"></div><div class="sub normal cap">青山意气峥嵘</div><div class="sub hover cap" style="opacity:0">似为我归来妩媚生</div></a></div></header>
@@ -61,71 +65,7 @@
 <div class="widgets">
 <div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
 
-<widget class="widget-wrapper markdown"><div class="widget-body fs14"><style>
-.fog-ip { filter: blur(4px); opacity: 0.8; transition: all 0.4s ease; cursor: pointer; user-select: none; }
-.fog-ip:hover { filter: blur(0); opacity: 1; user-select: auto; }
-</style>
-<p style="margin: 0 0 8px 0; font-size: 14px; color: var(--text-p1);">欢迎 <span id="welcome-location" style="color: #f472b6; font-weight: bold;">地球</span> 的小伙伴</p>
-<p style="margin: 0 0 8px 0; font-size: 14px; color: var(--text-p1);">您的IP：<span id="welcome-ip" class="fog-ip" style="color: #fff; background: #fbbf24; padding: 2px 8px; border-radius: 8px; font-family: monospace;">正在侦测...</span></p>
-<p style="margin: 0 0 8px 0; font-size: 14px; color: #7dd3fc; font-weight: bold;">祝你找到属于自己的频率</p>
-<p style="margin: 0 0 8px 0; font-size: 14px;"><a href="/about/" style="color: #86efac; border-bottom: 1px solid #86efac; text-decoration: none;">我的个人主页</a></p>
-<hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 12px 0;">
-<p style="font-size: 13px; color: var(--text-p3); margin: 0; line-height: 1.6;">若访问速度异常,请点击左下角邮件反馈</p>
 
-<script>
-async function fetchIpInfo() {
-  const elIp = document.getElementById('welcome-ip');
-  const elLoc = document.getElementById('welcome-location');
-
-  try {
-    // 第一优先级：使用 ip.useragentinfo.com 接口，对国内移动端适配较好
-    const response = await fetch('https://ip.useragentinfo.com/json');
-    if (!response.ok) throw new Error('Primary API failed');
-    const res = await response.json();
-    
-    if (res.code === 200) {
-      elIp.innerText = res.ip || '未知 IP';
-      // 优先显示省市，如果移动端只能定位到省，则只显示省
-      const prov = res.province || '';
-      const city = (res.city && res.city !== prov) ? res.city : '';
-      elLoc.innerText = prov + city;
-    } else {
-      throw new Error('Primary API Invalid Data');
-    }
-  } catch (err) {
-    try {
-      // 第二优先级：百度云接口作为备选
-      const response = await fetch('https://qifu-api.baidubce.com/ip/local/geo/v1/city');
-      const res = await response.json();
-      if (res.code === 'Success' && res.data) {
-        elIp.innerText = res.data.ip || '未知 IP';
-        elLoc.innerText = (res.data.prov || '') + (res.data.city || '');
-      } else {
-        throw new Error('Secondary API failed');
-      }
-    } catch (fallbackErr) {
-      // 如果国内接口都失败，尝试 ipapi.co (国外访问或科学上网环境)
-      try {
-        const fallbackRes = await fetch('https://ipapi.co/json/');
-        const fallbackData = await fallbackRes.json();
-        elIp.innerText = fallbackData.ip || '未知 IP';
-        const country = fallbackData.country_name === 'China' ? '' : (fallbackData.country_name || '');
-        elLoc.innerText = `${country} ${fallbackData.region || ''} ${fallbackData.city || ''}`.trim();
-      } catch (lastErr) {
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          elIp.innerText = '127.0.0.1';
-          elLoc.innerText = '本地测试环境';
-        } else {
-          elIp.innerText = '获取失败';
-          elLoc.innerText = '未知空间';
-        }
-      }
-    }
-  }
-}
-setTimeout(fetchIpInfo, 500);
-</script>
-</div></widget>
 
 <widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/06/05/2026-06-05-%E4%BD%9C%E4%BA%86%E4%B8%80%E4%B8%AA%E5%AD%A6%E6%A0%A1%E7%B1%BB%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E5%B7%A5%E4%BD%9C%E7%AB%99/"><span class="title">斩获比赛第一！我做了一个校园服务类智能体工作站</span></a><a class="item title" href="/2026/04/07/2026-04-01/"><span class="title">利用hexo快速制作 Butterfly 主题个人博客</span></a><a class="item title" href="/2026/05/01/2026-05-1/"><span class="title">初学嵌入式硬件的一些总结</span></a><a class="item title" href="/2026/05/07/2026-05-07/"><span class="title">一键转换文件为markdown格式</span></a><a class="item title" href="/2026/04/24/2026-04-24/"><span class="title">评论系统和Decap CMS正式接入啦！</span></a></div></widget>
 
@@ -343,12 +283,80 @@ setTimeout(fetchIpInfo, 500);
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/img/my-avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main"><img src="/img/huaizhou.jpg" class="custom-logo" alt="HZZZZ小站"></div><div class="sub normal cap">青山意气峥嵘</div><div class="sub hover cap" style="opacity:0">似为我归来妩媚生</div></a></div></header>
-
- 
 
 
-<div class="navbar top"><div class="navbar-blur"><div class="navbar-container"><nav class="post"><a href="/">近期发布</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a class="active" href="/archives/">归档</a></nav></div></div></div><div class="post-list archives"><article class="" id="archive"><div class='archive-header h4'>2026</div><div class="archive-list"><a class='post fs14' href="/2026/06/05/2026-06-05-%E4%BD%9C%E4%BA%86%E4%B8%80%E4%B8%AA%E5%AD%A6%E6%A0%A1%E7%B1%BB%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E5%B7%A5%E4%BD%9C%E7%AB%99/"><time>06-05</time><span>斩获比赛第一！我做了一个校园服务类智能体工作站</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/07/2026-05-07/"><time>05-07</time><span>一键转换文件为markdown格式</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/05/01/2026-05-1/"><time>05-01</time><span>初学嵌入式硬件的一些总结</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/04/24/2026-04-24/"><time>04-24</time><span>评论系统和Decap CMS正式接入啦！</span></a></div><div class="archive-list"><a class='post fs14' href="/2026/04/07/2026-04-01/"><time>04-07</time><span>利用hexo快速制作 Butterfly 主题个人博客</span></a></div></article></div>
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%AE%9E%E6%88%98/">嵌入式实战</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-04-30T17:30:00.000Z">2026-05-01</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-05-15T05:43:13.131Z">2026-05-15</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>初学嵌入式硬件的一些总结</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="终于开始接入嵌入式开发了"><a href="#终于开始接入嵌入式开发了" class="headerlink" title="终于开始接入嵌入式开发了"></a>终于开始接入嵌入式开发了</h2><p><img src="/img/6.jpg"></p>
+<p>并没有一上来就开始啃课啃教材，我想做中学，好玩又深刻，所以去打了学校电子协会的一个小比赛</p>
+<p>还是非常痛苦的！连最基础的嘉立创eda都不会操作，搞得头大，不过熬一熬也就过来了！现在还算有点小小的收获，所以写这篇文章记录一下</p>
+<p>首先就是大家最关心的咋用ai辅助自己的嵌入式硬件学习，呃呃，我惯用ai学习的人在这里吃瘪了！ pcb图和原理图（或者你自己面包板，pcb版的接线）细节太多，ai的幻觉率真的很高，我目前还没有找到有效的解决办法</p>
+<h2 id="目前我发现的只能是一些折中的方案："><a href="#目前我发现的只能是一些折中的方案：" class="headerlink" title="目前我发现的只能是一些折中的方案："></a>目前我发现的只能是一些折中的方案：</h2><ul>
+<li><strong>减少重复变量</strong>:控制变量法，把细节控制变量的告诉ai，方便ai理解你的实际情况并给出解决方案</li>
+<li><strong>局部细节推送</strong>：先发全部，再发局部细节，方便ai由点到面，降低幻觉率</li>
+</ul>
+<h2 id="还有一些基本的概念小白要知道"><a href="#还有一些基本的概念小白要知道" class="headerlink" title="还有一些基本的概念小白要知道"></a>还有一些基本的概念小白要知道</h2><ul>
+<li><strong>封装库</strong>：这就像是给电子元件买“衣服”和“房子”。同一个芯片可能会有不同的长相和引脚间距。你在嘉立创EDA里画完原理图转PCB时，如果封装没选对，买回来的实物元件就根本焊不到板子上去！</li>
+<li><strong>贴片和插件 (SMD vs THT)</strong>：这是两种常见的元件形态。插件元件有长长的引脚，适合插在面包板上测试，或者穿过PCB板焊接，对新手极其友好；而贴片元件很小，直接焊在板子表面，省空间，但纯手工焊接的话非常考验眼力和手抖程度。</li>
+<li><strong>面包板</strong>：打板子之前的“后悔药”。在真正画PCB之前，一定要先在面包板上用插件把电路搭出来，验证逻辑有没有问题。不然等板子打回来才发现短路或者没声音，那就只能飞线或者重画了。</li>
+<li><strong>芯片手册 (Datasheet)</strong>：硬件开发者的“圣经”。前面提到AI容易幻觉，这时候最靠谱的只有官方给的手册！里面有典型应用电路（参考电路图）、引脚定义和极限电压。遇到不懂的芯片，先去半导体网站下个PDF看绝对没错。</li>
+<li><strong>原理图与PCB布线 (Routing)</strong>：原理图是你告诉电脑“谁和谁连在一起”，而PCB布线是你亲自安排“它们在物理空间上怎么走线”。线宽多少、电源线加粗、怎么打过孔、避免锐角走线，这些都是在布线阶段要掉的头发。</li>
+</ul>
+<h2 id="我的实战小试牛刀与避坑"><a href="#我的实战小试牛刀与避坑" class="headerlink" title="我的实战小试牛刀与避坑"></a>我的实战小试牛刀与避坑</h2><p>光说不练假把式，这次比赛我上手折腾了一个 <strong>D类闪烁音响</strong>，主控和核心逻辑用到了 <strong>TDA2822</strong>（做音频功放）和 <strong>KA2284</strong>（做LED电平指示）。</p>
+<p>在实操过程中，我深刻体会到了理论和实际的差距：</p>
+<ol>
+<li><strong>电容体积的背刺</strong>：比如电路里用到的 470μF 电容，在原理图上它只是一个符号，但在画 PCB 时，你得考虑它的物理占地面积和高度！如果布局太挤，实物根本塞不进去。</li>
+<li><strong>走线与干扰</strong>：音频电路对干扰非常敏感。TDA2822 这类功放芯片在布线时，地线（GND）的处理极其关键，如果乱连一气，最后喇叭里可能全是“滋滋”的电流底噪。</li>
+<li><strong>核对BOM表</strong>：下单元件前一定要对着BOM表多看两眼，漏买一个电阻，整个项目就要被迫停工等快递。</li>
+<li><strong>打板之前一定要审查！</strong>：我就是因为换了芯片封装后没仔细看就打板了，结果因为芯片封装大小不一样，原本连芯片的线全部没连上。。。啊啊啊白忙活了很久结果发现芯片一个脚没连上的痛苦，一定要小心了，封装不一样哪怕芯片型号一样也可能有大小差异！！！</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>万事开头难，特别是从纯软件&#x2F;代码的思维跨界到需要考虑物理规律的硬件领域。虽然被嘉立创EDA的各种快捷键和AI的胡说八道折磨得不轻，但当板子焊好，通电后LED灯跟着音乐节奏闪烁、喇叭里传出声音的那一刻，那种“亲手创造物理实体”的成就感是无与伦比的。</p>
+<p>这篇算是入门的一点小吐槽和经验总结，之后如果还有更多硬件折腾日记，再更新到博客上！总之，万事开头难，与君共勉吧！</p>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/05/07/2026-05-07/">一键转换文件为markdown格式</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/04/24/2026-04-24/">评论系统和Decap CMS正式接入啦！</a></div></section></div>
+
+
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      <p>快来参与讨论吧~</p>
+
+    </section>
+    <section class='body cmt-body twikoo'>
+      
+
+<div id="twikoo_container"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+    </section>
+  </div>
+
+
+
 <footer class="page-footer footnote"><hr><div class="text"><div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
   <p style="margin: 4px 0;">Copyright &copy; 2026 HZ Lab</p>
   <p style="margin: 4px 0;">本站已平稳运行：<span id="site_runtime" style="color: #1BCDFC; font-weight: bold;">载入中...</span></p>
@@ -371,174 +379,10 @@ setTimeout(fetchIpInfo, 500);
 </script>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right"><div class="widgets">
-<widget class="widget-wrapper markdown"><div class="widget-body fs14"><style>
-.author-avatar-img { width: 100px !important; height: 100px !important; border-radius: 50% !important; object-fit: cover !important; border: 3px solid rgba(255,255,255,0.4) !important; margin: 0 auto 12px auto !important; display: block !important; transition: transform 0.5s; }
-.author-avatar-img:hover { transform: rotate(360deg) scale(1.05); }
-.author-name-text { font-size: 24px; font-weight: 800; margin: 0 0 8px 0; text-align: center; color: var(--text-p0); }
-.author-bio-text { font-size: 13px; color: var(--text-p2); line-height: 1.5; margin: 0 0 20px 0; text-align: center; }
-.author-stats-box { display: flex; justify-content: space-around; margin-bottom: 24px; }
-.stat-item { display: flex; flex-direction: column; align-items: center; }
-.stat-count { font-size: 18px; font-weight: bold; color: var(--text-p1); margin-bottom: 2px; }
-.stat-label { font-size: 12px; color: var(--text-p3); }
-.author-follow-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: #739d73; color: #fff !important; text-decoration: none !important; padding: 10px 0; border-radius: 20px; font-size: 15px; font-weight: 600; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.1); }
-.author-follow-btn:hover { background: #5c805c; transform: translateY(-2px); }
-</style>
 
-<img src="/img/my-avatar.jpg" class="author-avatar-img" alt="avatar">
-<h2 class="author-name-text">孙淮洲</h2>
-<p class="author-bio-text">工科在读 性格 INFP<br>愿望是世界和平</p>
-<div class="author-stats-box">
-  <div class="stat-item"><span class="stat-count" id="gh-followers">-</span><span class="stat-label">followers</span></div>
-  <div class="stat-item"><span class="stat-count" id="gh-following">-</span><span class="stat-label">following</span></div>
-  <div class="stat-item"><span class="stat-count" id="gh-repos">-</span><span class="stat-label">repos</span></div>
-</div>
-<a href="https://github.com/nz12138" target="_blank" class="author-follow-btn">
-  <i class="fa-brands fa-github"></i> Follow
-</a>
 
-<script>
-  const githubID = 'nz12138'; 
-  fetch(`https://api.github.com/users/${githubID}`).then(res => res.json()).then(data => {
-      if(!data.message) {
-        document.getElementById('gh-followers').innerText = data.followers || 0;
-        document.getElementById('gh-following').innerText = data.following || 0;
-        document.getElementById('gh-repos').innerText = data.public_repos || 0;
-      }
-    }).catch(err => console.log('GitHub API error', err));
-</script>
-</div></widget>
 
-<widget class="widget-wrapper markdown"><div class="widget-body fs14"><style>
-/* 1. 彻底移除组件自带的背景、阴影和边距，防止大框包小框 */
-#mete0r_timeline { 
-  background: transparent !important; 
-  box-shadow: none !important; 
-  padding: 0 !important; 
-}
-
-.timeline-wrapper {
-  padding: 10px 5px;
-}
-
-.timeline-title {
-  font-size: 14px;
-  color: var(--text-p3);
-  margin-bottom: 20px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* 2. 这里的布局不再使用背景框，而是使用经典时间轴线 */
-.timeline-container {
-  position: relative;
-  padding-left: 20px;
-  margin-left: 10px;
-  border-left: 2px solid rgba(120, 120, 120, 0.2); /* 贯穿全剧的时间轴线 */
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 25px;
-}
-
-/* 时间轴上的圆点 */
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -27px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background: var(--card); /* 随主题变色 */
-  border: 2px solid #60a5fa;
-  border-radius: 50%;
-  z-index: 2;
-}
-
-.timeline-date-label {
-  font-size: 13px;
-  font-weight: bold;
-  color: var(--text-p1);
-  margin-bottom: 4px;
-}
-
-.timeline-time-label {
-  font-size: 11px;
-  color: var(--text-p3);
-  margin-bottom: 8px;
-}
-
-/* 动态内容：不加背景，直接印在玻璃上 */
-.timeline-inner-content {
-  font-size: 14px;
-  color: var(--text-p1);
-  line-height: 1.6;
-  word-wrap: break-word;
-}
-
-.timeline-inner-content img {
-  border-radius: 12px;
-  margin-top: 10px;
-  max-width: 100%;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.timeline-footer-link {
-  display: block;
-  text-align: right;
-  font-size: 12px;
-  color: #60a5fa;
-  text-decoration: none;
-  margin-top: 8px;
-  transition: 0.3s;
-}
-.timeline-footer-link:hover { color: #93c5fd; }
-</style>
-
-<div class="timeline-wrapper">
-  <div class="timeline-title"><i class="fa-solid fa-bolt-lightning"></i> 近期动态</div>
-  
-  <div id="dynamic-timeline-box" class="timeline-container">
-    <!-- JS 自动填充内容 -->
-    <div style="font-size: 13px; color: var(--text-p3);">正在同步信号...</div>
-  </div>
-</div>
-
-<script>
-  // 路径已指向你新建的 /api/ 文件夹
-  fetch('/api/timeline.json?t=' + new Date().getTime())
-    .then(res => res.json())
-    .then(data => {
-      const box = document.getElementById('dynamic-timeline-box');
-      let htmlStr = '';
-      
-      // 翻转数组，使最新动态在最上
-      data.reverse();
-      // 渲染所有动态
-      data.forEach(item => {
-        let imageHtml = '';
-        if (item.image) {
-          imageHtml = `<img src="${item.image}" alt="动态配图" style="max-height: 120px; object-fit: cover;">`;
-        }
-        htmlStr += `
-          <div class="timeline-item">
-            <div class="timeline-date-label">${item.date}</div>
-            <div class="timeline-time-label">${item.time}</div>
-            <div class="timeline-inner-content">${item.content}${imageHtml}</div>
-            <a href="/speak/#comments" class="timeline-footer-link">发布评论 →</a>
-          </div>
-        `;
-      });
-      
-      box.innerHTML = htmlStr;
-    })
-    .catch(err => {
-      document.getElementById('dynamic-timeline-box').innerHTML = '暂无信号';
-    });
-</script>
-</div></widget>
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E4%BA%8E%E5%BC%80%E5%A7%8B%E6%8E%A5%E5%85%A5%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91%E4%BA%86"><span class="toc-text">终于开始接入嵌入式开发了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%88%91%E5%8F%91%E7%8E%B0%E7%9A%84%E5%8F%AA%E8%83%BD%E6%98%AF%E4%B8%80%E4%BA%9B%E6%8A%98%E4%B8%AD%E7%9A%84%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-text">目前我发现的只能是一些折中的方案：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%98%E6%9C%89%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A6%82%E5%BF%B5%E5%B0%8F%E7%99%BD%E8%A6%81%E7%9F%A5%E9%81%93"><span class="toc-text">还有一些基本的概念小白要知道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E5%AE%9E%E6%88%98%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80%E4%B8%8E%E9%81%BF%E5%9D%91"><span class="toc-text">我的实战小试牛刀与避坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a><a class="buttom" onclick="util.scrollComment()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M8 10.5h8M8 14h5.5M17 3.338A9.95 9.95 0 0 0 12 2C6.477 2 2 6.477 2 12c0 1.6.376 3.112 1.043 4.453c.178.356.237.763.134 1.148l-.595 2.226a1.3 1.3 0 0 0 1.591 1.592l2.226-.596a1.63 1.63 0 0 1 1.149.133A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10c0-1.821-.487-3.53-1.338-5"/></svg><span>参与讨论</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
@@ -552,7 +396,7 @@ setTimeout(fetchIpInfo, 500);
 
 <script type="text/javascript">
   window.canonical = {"closeEnable":true,"closeText":"关闭提示","originalHost":null,"officialHosts":["localhost"],"encoded":""};
-  window.canonical["param"] = {"permalink":null,"checklink":"/js/plugins/video.js"};
+  window.canonical["param"] = {"permalink":"http://example.com/2026/05/01/2026-05-1/","checklink":"/js/plugins/video.js"};
   // Fix: Ensure page is at the correct top position on data load
   if (history.scrollRestoration) {
     history.scrollRestoration = 'auto';
@@ -1188,6 +1032,37 @@ setTimeout(fetchIpInfo, 500);
 
 
 <!-- optional -->
+
+  <script>
+  (function() {
+    const lazyload = false;
+    
+    function initTwikoo() {
+      const el = document.getElementById('twikoo_container');
+      if (!el) return;
+      
+      function load_twikoo() {
+        utils.js('https://gcore.jsdelivr.net/npm/twikoo@1.7.7/dist/twikoo.all.min.js', {defer: true}).then(function () {
+          const path = el.getAttribute('comment_id') ?? decodeURI(window.location.pathname);
+          twikoo.init(Object.assign({"js":"https://gcore.jsdelivr.net/npm/twikoo@1.7.7/dist/twikoo.all.min.js","envId":"https://twikoo.hz-artalk.abrdns.com/.netlify/functions/twikoo"}, {
+            el: '#twikoo_container',
+            path: path,
+          }));
+        });
+      }
+      
+      util.viewportLazyload(el, load_twikoo, lazyload);
+    }
+    
+    // Store in global stellar namespace for PJAX reinitialization
+    window.stellar = window.stellar || {};
+    window.stellar.initComments = window.stellar.initComments || {};
+    window.stellar.initComments.twikoo = initTwikoo;
+    
+    // Initialize on page load
+    initTwikoo();
+  })();
+</script>
 
 
 
