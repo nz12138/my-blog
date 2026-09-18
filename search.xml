@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>从零到一构建高颜值移动端抽奖系统</title>
+      <link href="/2026/09/18/2026-9-18/"/>
+      <url>/2026/09/18/2026-9-18/</url>
+      
+        <content type="html"><![CDATA[<h1 id="从零到一构建高逼格移动端抽奖系统：双零抽奖-Shuang00-Gacha-项目复盘"><a href="#从零到一构建高逼格移动端抽奖系统：双零抽奖-Shuang00-Gacha-项目复盘" class="headerlink" title="从零到一构建高逼格移动端抽奖系统：双零抽奖 (Shuang00 Gacha) 项目复盘"></a>从零到一构建高逼格移动端抽奖系统：双零抽奖 (Shuang00 Gacha) 项目复盘</h1><p>最近我独立完成了一个名为**“双零抽奖”**的移动端 H5 抽奖应用。在这个项目中，我不仅追求了视觉上的极致流畅体验，还在后端架构和防作弊安全机制上下了不少功夫。今天就和大家复盘一下这个项目的核心技术点和踩坑经验。</p><hr><h2 id="🎨-视觉与交互体验：拒绝廉价感"><a href="#🎨-视觉与交互体验：拒绝廉价感" class="headerlink" title="🎨 视觉与交互体验：拒绝廉价感"></a>🎨 视觉与交互体验：拒绝廉价感</h2><p>市面上很多 H5 抽奖页面看起来都非常粗糙，我希望“双零抽奖”能给用户一种“高级感”。</p><p><strong>抽奖主页展示：</strong><br><img src="/img/9.png?v=1"></p><ol><li><strong>3D 卡牌跟随动效</strong>：在首页，我利用 CSS3 的 <code>transform: rotateX/rotateY</code> 配合原生 JS 的鼠标&#x2F;触摸事件，实现了一个带有全息反光效果（Holographic Glare）的 3D 抽奖卡片。用户手指滑动时，卡片会随着视角转动，光影也会随之变化。</li><li><strong>丝滑的轮播动画</strong>：摒弃了生硬的闪烁切换，奖品展示区加入了平滑的横向滑动（Slide）和淡入淡出（Fade）过渡动画，并且针对手机端优化了滑动浏览体验。</li></ol><p><strong>抽奖结果展示：</strong><br><img src="/img/10.png?v=1"></p><ol start="3"><li><strong>沉浸式音效</strong>：加入了抽奖背景音乐和中奖音效，补足了网页端缺乏物理反馈的缺点。</li></ol><hr><h2 id="🛠️-技术栈选型"><a href="#🛠️-技术栈选型" class="headerlink" title="🛠️ 技术栈选型"></a>🛠️ 技术栈选型</h2><p>为了兼顾开发效率和运行性能，我选择了以下轻量且现代化的技术栈：</p><ul><li><strong>后端核心</strong>：<code>FastAPI</code> (Python) —— 极其轻量、高性能的异步 Web 框架，自带交互式 API 文档。</li><li><strong>数据库</strong>：<code>MySQL</code> + <code>SQLAlchemy</code> (ORM) —— 经典稳定的关系型数据库搭配，保证数据的一致性。</li><li><strong>前端界面</strong>：<code>HTML5</code> + <code>Vanilla JS</code> (原生 JS) + <code>TailwindCSS</code>。没有引入庞大的框架，直接手写原生逻辑，配合 Tailwind 快速构建出毛玻璃、渐变等现代感 UI。</li><li><strong>部署环境</strong>：Ubuntu 服务器 + Uvicorn 运行，并且将配置通过环境变量和 <code>config.py</code> 进行解耦。</li></ul><hr><h2 id="🛡️-核心亮点：防刷、防篡改与高并发应对"><a href="#🛡️-核心亮点：防刷、防篡改与高并发应对" class="headerlink" title="🛡️ 核心亮点：防刷、防篡改与高并发应对"></a>🛡️ 核心亮点：防刷、防篡改与高并发应对</h2><p>做抽奖系统，最怕的就是<strong>羊毛党连点器</strong>和<strong>库存超卖</strong>。为了应对这些问题，我设计了严密的防守机制：</p><h3 id="1-巧妙的防重防抖（数据库唯一约束）"><a href="#1-巧妙的防重防抖（数据库唯一约束）" class="headerlink" title="1. 巧妙的防重防抖（数据库唯一约束）"></a>1. 巧妙的防重防抖（数据库唯一约束）</h3><p>很多新手在处理抽奖时，会先查库看用户抽没抽过，再扣库存，这就容易产生并发漏洞。<br>我在后端抽奖接口 (<code>/draw</code>) 中，采用了一种基于<strong>数据库唯一约束 (UNIQUE KEY)</strong> 的占位防刷策略：</p><pre><code class="language-python"># 伪代码演示try:    # 尝试插入一条临时占位流水    new_record = DrawRecord(device_id=device_id, prize_id=0)    db.add(new_record)    db.flush() # 强制推入数据库触发唯一性校验except IntegrityError:    # 报错说明坑位已被占，用户已抽过，直接拦截    return {&quot;message&quot;: &quot;您已经参与过抽奖啦&quot;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 项目 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Agent开发 </tag>
+            
+            <tag> AI实战 </tag>
+            
+            <tag> 校园服务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>斩获比赛第一！我做了一个校园服务类智能体工作站</title>
       <link href="/2026/06/05/2026-06-05-%E4%BD%9C%E4%BA%86%E4%B8%80%E4%B8%AA%E5%AD%A6%E6%A0%A1%E7%B1%BB%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E5%B7%A5%E4%BD%9C%E7%AB%99/"/>
       <url>/2026/06/05/2026-06-05-%E4%BD%9C%E4%BA%86%E4%B8%80%E4%B8%AA%E5%AD%A6%E6%A0%A1%E7%B1%BB%E7%9A%84%E6%99%BA%E8%83%BD%E4%BD%93%E5%B7%A5%E4%BD%9C%E7%AB%99/</url>
