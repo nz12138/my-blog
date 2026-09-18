@@ -27,18 +27,36 @@ mete0r_welcome:
         return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(timer));
       }
 
+      // JSONP 封装 (专用于 Pconline，解决 CORS 和 GBK 乱码问题)
+      function fetchPconline() {
+        return new Promise((resolve, reject) => {
+          const cbName = 'ipcb_' + Math.round(Math.random() * 100000);
+          window[cbName] = function(data) {
+            delete window[cbName];
+            script.remove();
+            resolve(data);
+          };
+          const script = document.createElement('script');
+          script.src = `https://whois.pconline.com.cn/ipJson.jsp?callback=${cbName}`;
+          script.charset = 'GBK';
+          script.onerror = () => reject(new Error('JSONP failed'));
+          document.head.appendChild(script);
+          // 超时处理
+          setTimeout(() => reject(new Error('JSONP timeout')), 4000);
+        });
+      }
+
       try {
-        // 优先级1：ip-api.com
-        const r1 = await fetchWithTimeout('http://ip-api.com/json/?lang=zh-CN&fields=status,query,country,regionName,city', 4000);
-        const d1 = await r1.json();
-        if (d1.status === 'success') {
-          elIp.innerText = d1.query || '未知 IP';
-          let prov = d1.regionName || '';
+        // 优先级1：太平洋电脑网 (国内极速，返回纯正中文)
+        const d1 = await fetchPconline();
+        if (d1 && d1.ip) {
+          elIp.innerText = d1.ip || '未知 IP';
+          let prov = d1.pro || '';
           let city = d1.city || '';
           elLoc.innerText = prov + (city && city !== prov ? ' ' + city : '');
+          if (!elLoc.innerText.trim()) elLoc.innerText = (d1.addr || '').replace(' ', '') || '未知空间';
           return;
         }
-        throw new Error('ip-api failed');
       } catch (_) {}
 
       try {
