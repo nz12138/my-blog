@@ -32,11 +32,86 @@ function layout_post_list(partial) {
   return el;
 }
 
+var is_first_home = is_home() && (page.current == 1 || page.current == undefined);
 %>
 
 <%- partial('_partial/main/navbar/nav_tabs_blog') %>
-<%- layout_post_list(function(post){
-  return partial('_partial/main/post_list/post_card', {post: post})
-}) %>
-<%- partial('_partial/main/post_list/paginator') %>
+
+<% if (is_first_home) { %>
+  <div class="post-list post" id="project-post-list">
+    <% 
+      var project_posts = site.posts.filter(function(post){
+        return (post.project === true || post.featured_project === true) && post.indexing != false;
+      }).sort('date', -1);
+      project_posts.each(function(post){ 
+    %>
+      <%- layout_post_card('post', post, partial('_partial/main/post_list/post_card', {post: post})) %>
+    <% }) %>
+  </div>
+
+  <div class="post-list post" id="recent-post-list" style="display: none;">
+    <% page.posts.each(function(post){ %>
+      <% if (post.indexing != false) { %>
+        <%- layout_post_card('post', post, partial('_partial/main/post_list/post_card', {post: post})) %>
+      <% } %>
+    <% }) %>
+  </div>
+
+  <div id="recent-paginator" style="display: none;">
+    <%- partial('_partial/main/post_list/paginator') %>
+  </div>
+
+  <script>
+  function switchHomeTab(tab, updateHash) {
+    var btnProject = document.getElementById('nav-tab-project');
+    var btnRecent = document.getElementById('nav-tab-recent');
+    var projectList = document.getElementById('project-post-list');
+    var recentList = document.getElementById('recent-post-list');
+    var recentPaginator = document.getElementById('recent-paginator');
+
+    if (!projectList || !recentList) return;
+
+    if (tab === 'recent') {
+      projectList.style.display = 'none';
+      recentList.style.display = '';
+      if (recentPaginator) recentPaginator.style.display = '';
+      if (btnProject) btnProject.classList.remove('active');
+      if (btnRecent) btnRecent.classList.add('active');
+      if (updateHash) {
+        try { history.replaceState(null, '', '#recent'); } catch(e) {}
+      }
+    } else {
+      recentList.style.display = 'none';
+      if (recentPaginator) recentPaginator.style.display = 'none';
+      projectList.style.display = '';
+      if (btnRecent) btnRecent.classList.remove('active');
+      if (btnProject) btnProject.classList.add('active');
+      if (updateHash) {
+        try { history.replaceState(null, '', location.pathname + location.search); } catch(e) {}
+      }
+    }
+  }
+
+  (function() {
+    function checkHash() {
+      if (window.location.hash === '#recent') {
+        switchHomeTab('recent', false);
+      } else if (window.location.hash === '#project') {
+        switchHomeTab('project', false);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkHash);
+    } else {
+      checkHash();
+    }
+    window.addEventListener('hashchange', checkHash);
+  })();
+  </script>
+<% } else { %>
+  <%- layout_post_list(function(post){
+    return partial('_partial/main/post_list/post_card', {post: post})
+  }) %>
+  <%- partial('_partial/main/post_list/paginator') %>
+<% } %>
 <%- partial('_partial/comments/layout') %>

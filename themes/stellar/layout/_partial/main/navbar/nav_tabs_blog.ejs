@@ -5,10 +5,16 @@ function layoutDiv() {
   el += '<div class="navbar-blur">';
   el += '<div class="navbar-container">';
   el += '<nav class="post">';
-  if (is_home()) {
-    el += '<a class="active" href="' + pretty_url(config.index_generator.path) + '">' + __("btn.recent_publish") + '</a>';
+  var is_first_home = is_home() && (page.current == 1 || page.current == undefined);
+  if (is_first_home) {
+    el += '<a class="active" id="nav-tab-project" href="#project" onclick="switchHomeTab(\'project\', true); return false;">项目集</a>';
+    el += '<a id="nav-tab-recent" href="#recent" onclick="switchHomeTab(\'recent\', true); return false;">' + __("btn.recent_publish") + '</a>';
+  } else if (is_home()) {
+    el += '<a id="nav-tab-project" href="' + pretty_url(config.index_generator.path) + '">项目集</a>';
+    el += '<a class="active" id="nav-tab-recent" href="' + pretty_url(config.index_generator.path) + '#recent">' + __("btn.recent_publish") + '</a>';
   } else {
-    el += '<a href="' + pretty_url(config.index_generator.path) + '">' + __("btn.recent_publish") + '</a>';
+    el += '<a id="nav-tab-project" href="' + pretty_url(config.index_generator.path) + '">项目集</a>';
+    el += '<a id="nav-tab-recent" href="' + pretty_url(config.index_generator.path) + '#recent">' + __("btn.recent_publish") + '</a>';
   }
 
   if (site.categories && site.categories.length > 0) {
